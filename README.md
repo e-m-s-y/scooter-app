@@ -18,7 +18,7 @@ manually build it. See more information below.
 1. Download [Appcelerator Studio](http://appcelerator.com).
 2. Create an [Appcelerator account](https://platform.axway.com/#/signup)
 3. Log into the [Appcelerator Platform](https://platform.axway.com)
-4. Go to Account (top right) -> Billing -> Adjust Plan and select the free plan.
+4. Go to Account (top right) `->` Billing `->` Adjust Plan and select the free plan.
 5. Login via CLI with `appc login`.
 6. Clone this repo.
 7. Continue with Android or iOS below.
