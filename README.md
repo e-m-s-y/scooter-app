@@ -24,14 +24,14 @@ manually build it. See more information below.
 2. Open the SDK manager and install Android 10.
 3. Install an Android Virtual Device (AVD) with Android 10.
 4. Boot the AVD.
-5. Use `appc ti info` to find the name if the AVD.
-6. Build and install the app with `appc run -p android -T emulator --device-id <deviceId>`.
+5. Use `appc ti info` to find the ID of the AVD.
+6. Build and install the app with `appc run -p android -T emulator --device-id <deviceId>` (looks like Pixel_3_API_29).
 7. Building will take a minute depending on your machine.
 8. Once building is completed the app should automatically be installed and started on your AVD.
 
 ### IOS
 1. Boot the simulator.
-2. Run `appc ti info` and look for the iOS simulator UUID.
+2. Run `appc ti info` and look for the iOS simulator UUID (looks like D002EE88-AAA-1111-BBB-068016363672).
 3. Build and install the app with `appc run -p ios -C <deviceId>`.
 4. Building will take a minute depending on your machine.
 5. Once building is completed the app should automatically be installed and started on your simulator.
