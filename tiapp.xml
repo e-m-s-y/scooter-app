@@ -42,7 +42,11 @@
         </plist>
     </ios>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
-        <manifest android:versionCode="1" xmlns:android="http://schemas.android.com/apk/res/android"/>
+        <manifest android:versionCode="1" android:versionName="0.0.1"
+                  xmlns:android="http://schemas.android.com/apk/res/android">
+            <uses-sdk android:maxSdkVersion="29" android:minSdkVersion="29" android:targetSdkVersion="29"/>
+            <application android:theme="@style/Theme.Default"/>
+        </manifest>
     </android>
     <modules/>
     <deployment-targets>
