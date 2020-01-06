@@ -20,7 +20,7 @@ manually build it. See more information below.
 3. Login via CLI with `appc login`.
 
 ### Android
-1. Download and install Android Studio.
+1. Download and install [Android Studio](https://developer.android.com/studio).
 2. Open the SDK manager and install Android 10.
 3. Install an Android Virtual Device (AVD) with Android 10.
 4. Boot the AVD.
