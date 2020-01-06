@@ -14,10 +14,14 @@ https://ark.io/projects/ark-scooters
 Not possible because I currently don't have developer certificates for this project. If you want to run this app on iOS you have to 
 manually build it. See more information below.
 
-## Building manually (Appcelerator account details required)
+## Building manually (Appcelerator account required)
 1. Download [Appcelerator Studio](http://appcelerator.com).
-2. Clone this repo.
-3. Login via CLI with `appc login`.
+2. Create an [Appcelerator account](https://platform.axway.com/#/signup)
+3. Log into the [platform]()
+4. Go to Account (top right) -> Billing -> Adjust Plan and select the free plan.
+5. Login via CLI with `appc login`.
+6. Clone this repo.
+7. Continue with Android or iOS below.
 
 ### Android
 1. Download and install [Android Studio](https://developer.android.com/studio).
