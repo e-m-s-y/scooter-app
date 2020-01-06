@@ -5,7 +5,7 @@
     <version>1.0</version>
     <publisher>emsy</publisher>
     <url/>
-    <description></description>
+    <description>undefined</description>
     <copyright>2020 by emsy</copyright>
     <icon>appicon.png</icon>
     <fullscreen>false</fullscreen>
@@ -42,13 +42,16 @@
         </plist>
     </ios>
     <android xmlns:android="http://schemas.android.com/apk/res/android">
-        <manifest android:versionCode="1" android:versionName="0.0.1"
-                  xmlns:android="http://schemas.android.com/apk/res/android">
-            <uses-sdk android:maxSdkVersion="29" android:minSdkVersion="29" android:targetSdkVersion="29"/>
+        <manifest android:versionCode="1" android:versionName="0.0.1" xmlns:android="http://schemas.android.com/apk/res/android">
+            <uses-sdk android:maxSdkVersion="29"
+                android:minSdkVersion="29" android:targetSdkVersion="29"/>
             <application android:theme="@style/Theme.Default"/>
         </manifest>
     </android>
-    <modules/>
+    <modules>
+        <module platform="android">ti.socketio</module>
+        <module platform="iphone">ti.socketio</module>
+    </modules>
     <deployment-targets>
         <target device="android">true</target>
         <target device="ipad">true</target>
