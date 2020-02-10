@@ -3,6 +3,8 @@
 /platform
 /node_modules
 /app/lib/node_modules
+/app/lib/ark
+/app/webpack/node_modules
 .idea
 /i18n
 build.log
