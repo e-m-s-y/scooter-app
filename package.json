@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "webpack": "cd app/webpack && webpack",
+    "build": "cd app/webpack && npm install && webpack"
+  }
+}

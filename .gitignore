@@ -5,6 +5,7 @@
 /app/lib/node_modules
 /app/lib/ark
 /app/webpack/node_modules
+/app/webpack/dist
 .idea
 /i18n
 build.log

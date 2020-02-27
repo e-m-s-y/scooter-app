@@ -1,19 +1,19 @@
 <Alloy>
-    <NavigationWindow>
-        <Window title="Blocks" backgroundColor="#FFFFFF">
-            <Menu platform="android">
-                <MenuItem title="Clear" onClick="clearLog" showAsAction="Ti.Android.SHOW_AS_ACTION_ALWAYS" />
-            </Menu>
-            <RightNavButton platform="ios">
-                <Button onClick="clearLog">Clear</Button>
-            </RightNavButton>
-            <ListView id="listView" separatorStyle="Ti.UI.TABLE_VIEW_SEPARATOR_STYLE_NONE">
-                <Templates>
-                    <Require src="listview/templates/block"/>
-                    <Require src="listview/templates/separator"/>
-                </Templates>
-                <ListSection/>
-            </ListView>
-        </Window>
-    </NavigationWindow>
+<!--    <NavigationWindow id="navigationWindow">-->
+<!--        <Window title="Blocks" backgroundColor="#FFFFFF">-->
+<!--            <Menu platform="android">-->
+<!--                <MenuItem title="Clear" onClick="clearLog" showAsAction="Ti.Android.SHOW_AS_ACTION_ALWAYS" />-->
+<!--            </Menu>-->
+<!--            <RightNavButton platform="ios">-->
+<!--                <Button onClick="clearLog">Clear</Button>-->
+<!--            </RightNavButton>-->
+<!--            <ListView id="listView" separatorStyle="Ti.UI.TABLE_VIEW_SEPARATOR_STYLE_NONE">-->
+<!--                <Templates>-->
+<!--                    <Require src="listview/templates/block"/>-->
+<!--                    <Require src="listview/templates/separator"/>-->
+<!--                </Templates>-->
+<!--                <ListSection/>-->
+<!--            </ListView>-->
+<!--        </Window>-->
+<!--    </NavigationWindow>-->
 </Alloy>
