@@ -1,4 +1,5 @@
 const IN_APP = typeof Ti !== 'undefined' && typeof Ti.API !== 'undefined' && typeof Ti.API.log === 'function';
+const IS_CHROME = !!window.chrome;
 
 function log(message) {
 	if(IN_APP) {
@@ -8,8 +9,11 @@ function log(message) {
 	}
 }
 
-BigInt = require('big-integer');
-log('Loaded BigInt dependency ✅');
+if( ! IS_CHROME) {
+	BigInt = require('big-integer');
+	log('Loaded BigInt dependency ✅');
+}
+
 ArkCrypto = require('@arkecosystem/crypto');
 log('Loaded Ark Crypto dependency ✅');
 const config = require("./bridgechain-config");

@@ -36,6 +36,3 @@ webview.addEventListener('load', function() {
 win.add(webview);
 
 Ti.UI.createNavigationWindow({window: win}).open();
-
-
-
