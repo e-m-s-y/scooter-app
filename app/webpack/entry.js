@@ -1,8 +1,8 @@
 const IN_APP = typeof Ti !== 'undefined' && typeof Ti.API !== 'undefined' && typeof Ti.API.log === 'function';
-const IS_CHROME = !!window.chrome;
+const IS_CHROME = !!window.chrome || navigator.vendor === 'Google Inc.';
 
 function log(message) {
-	if(IN_APP) {
+	if(IN_APP && ! IS_CHROME) {
 		Ti.API.log(message);
 	} else {
 		console.log(message);

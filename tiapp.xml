@@ -46,7 +46,7 @@
         <manifest android:versionCode="1" android:versionName="0.0.1" xmlns:android="http://schemas.android.com/apk/res/android">
             <uses-sdk android:maxSdkVersion="28"
                 android:minSdkVersion="28" android:targetSdkVersion="28"/>
-            <application android:theme="@style/Theme.Default"/>
+            <application android:theme="@style/Theme.Default" android:debuggable="true"/>
         </manifest>
     </android>
     <modules>

@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "webpack": "cd app/webpack && webpack",
-    "build": "cd app/webpack && npm install && webpack"
+    "webpack": "cd app/webpack && webpack && node -e \"require('fs').copyFile('./bundle.js', '../assets/bundle.jsx', () => {})\"",
+    "build": "cd app/webpack && npm install && cd ../.. && npm run webpack"
   }
 }
