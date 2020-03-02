@@ -109,34 +109,101 @@ function parseResult(event) {
 	return msg;
 }
 
-// window.add(scrollView);
+const sessionTemplate = {
+	nonce: 0 // TODO add a way to override this in the settings.
+};
 
-// Ti.App.addEventListener('transferTxCreated', function(event){
-// 	console.log('Creating XHR request...');
-//
-// 	const xhr = Ti.Network.createHTTPClient();
-//
-// 	xhr.onload = function() {
-// 		console.log(this.responseText);
-// 	};
-//
-// 	xhr.open('POST', 'https://radians.nl/api/transactions');
-// 	xhr.setRequestHeader('content-type','application/json');
-//
-// 	const data = JSON.stringify({
-// 		transactions: [event.struct]
+const session = Ti.App.Properties.getObject('session', sessionTemplate);
+let nonce = session.nonce;
+const passphrase = 'jar width fee ostrich fantasy vehicle thank doctor teach family bottom trap';
+const recipient = 'TGGUtM6KPdWn7LSpNcWj1y5ngGa8xJqxHf';
+const sessionId = 'hello';
+
+function broadcastTxHandler(event) {
+	console.log('Creating XHR request...');
+
+	const xhr = Ti.Network.createHTTPClient();
+
+	xhr.onload = function() {
+		console.log(this.responseText);
+
+		session.nonce = ++nonce;
+
+		Ti.App.Properties.setObject('session', session);
+	};
+
+	xhr.open('POST', 'https://radians.nl/api/transactions');
+	xhr.setRequestHeader('content-type', 'application/json');
+
+	const data = JSON.stringify({
+		transactions: [event.struct]
+	});
+
+	console.log('Sending XHR request with data %O', data);
+	xhr.send(data);
+
+}
+
+Ti.App.addEventListener('transferTxCreated', broadcastTxHandler);
+Ti.App.addEventListener('scooterRegistrationTxCreated', broadcastTxHandler);
+Ti.App.addEventListener('rentalStartTxCreated', broadcastTxHandler);
+Ti.App.addEventListener('rentalFinishTxCreated', broadcastTxHandler);
+
+$.webView.addEventListener('load', function() {
+	Ti.App.fireEvent('createTransferTx', {
+		nonce: nonce,
+		passphrase: passphrase,
+		recipient: 'TEBFiv6emzoY6i4znYGrFeWiKyTRimhNWe',
+		vendorField: 'Hello from the app!',
+		amount: 11
+	});
+});
+
+// $.webView.addEventListener('load', function() {
+// 	Ti.App.fireEvent('createScooterRegistrationTx', {
+// 		id: '0123456789',
+// 		nonce: nonce,
+// 		passphrase: passphrase,
+// 		recipient: recipient,
+// 		vendorField: 'Hello from the app!',
+// 		amount: 33
 // 	});
-//
-// 	console.log('Sending XHR request with data %O', data);
-// 	xhr.send(data);
 // });
 
-// webview.addEventListener('load', function() {
-// 	Ti.App.fireEvent('createTransferTx', {
-// 		nonce: '15',
-// 		passphrase: 'jar width fee ostrich fantasy vehicle thank doctor teach family bottom trap',
-// 		recipient: 'TEBFiv6emzoY6i4znYGrFeWiKyTRimhNWe',
+// $.webView.addEventListener('load', function() {
+// 	Ti.App.fireEvent('createRentalStartTx', {
+// 		sessionId: sessionId,
+// 		nonce: nonce,
+// 		passphrase: passphrase,
+// 		recipientId: recipient,
 // 		vendorField: 'Hello from the app!',
-// 		amount: 11
+// 		amount: 55,
+// 		rate: '5',
+// 		gps: {
+// 			timestamp: Date.now(),
+// 			latitude: '-180.222222',
+// 			longitude: '1.111111',
+// 		}
+// 	});
+// });
+
+// $.webView.addEventListener('load', function() {
+// 	Ti.App.fireEvent('createRentalFinishTx', {
+// 		sessionId: sessionId,
+// 		nonce: nonce,
+// 		passphrase: passphrase,
+// 		recipientId: recipient,
+// 		vendorField: 'Hello from the app!',
+// 		amount: 333,
+// 		containsRefund: true,
+// 		gps: [{
+// 			timestamp: Date.now(),
+// 			latitude: '10.111111',
+// 			longitude: '-20.222222',
+// 		}, {
+// 			timestamp: Date.now() + 90 * 1000,
+// 			latitude: '15.111111',
+// 			longitude: '-25.222222',
+// 		}]
 // 	});
 // });

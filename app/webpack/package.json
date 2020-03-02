@@ -2,6 +2,7 @@
   "version": "0.0.1",
   "dependencies": {
     "@arkecosystem/crypto": "^2.6.0-next.7",
+    "@e-m-s-y/scooter-transactions": "git+https://github.com/e-m-s-y/scooter-transactions.git",
     "big-integer": "^1.6.48"
   },
   "devDependencies": {
