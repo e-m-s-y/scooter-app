@@ -1,0 +1,13 @@
+<Alloy>
+    <Window id="window" title="Real-time Radians events">
+        <ListView id="listView" onItemclick="onItemClickHandler" style="Ti.UI.iOS.ListViewStyle.GROUPED">
+            <Templates>
+                <Require src="listview/templates/clickable/double"/>
+                <Require src="listview/templates/block"/>
+            </Templates>
+            <ListSection headerTitle="scooter.rental.start"/>
+            <ListSection headerTitle="scooter.rental.finish"/>
+            <ListSection headerTitle="block.applied"/>
+        </ListView>
+    </Window>
+</Alloy>

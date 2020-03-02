@@ -3,6 +3,9 @@
         <Tab title="Add ride" icon="add_white_48.png">
             <Require src="ride/add"/>
         </Tab>
+        <Tab title="Events" icon="timeline_white_48.png">
+            <Require src="events"/>
+        </Tab>
         <Tab title="Settings" icon="settings_white_48.png">
             <Require src="settings"/>
         </Tab>

@@ -51,6 +51,8 @@
         </manifest>
     </android>
     <modules>
+        <module platform="android">ti.socketio</module>
+        <module platform="ios">ti.socketio</module>
     </modules>
     <deployment-targets>
         <target device="android">true</target>
