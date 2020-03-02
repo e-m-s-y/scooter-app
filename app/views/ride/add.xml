@@ -1,6 +1,6 @@
 <Alloy>
     <Window id="window" title="Add a ride" layout="vertical">
-        <WebView id="webView" url="core.html" onLoad="onWebViewLoadedHandler"/>
+        <WebView id="webView" url="/core.html" onLoad="onWebViewLoadedHandler"/>
         <Button id="scanFromCamera" class="t8" enabled="false" title="Scan code from camera"/>
         <Label text="or"/>
         <Button id="scanFromGallery" title="Scan image from gallery" onClick="onStartGalleryScanHandler"/>

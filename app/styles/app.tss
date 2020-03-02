@@ -14,8 +14,12 @@
     backgroundColor: Alloy.CFG.styles.defaultBackgroundColor
 }
 
-'Label': {
+'Label[platform=ios]': {
     color: Alloy.CFG.styles.inversedDefaultBackgroundColor
+}
+
+'Label[platform=android]': {
+    color: '#000000'
 }
 
 '.touchDisabled': {

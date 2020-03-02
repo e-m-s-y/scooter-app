@@ -1,20 +1,20 @@
 <Alloy>
     <Window id="window" title="Settings">
-        <ListView platform="ios" id="listView" style="Ti.UI.iOS.ListViewStyle.GROUPED">
-            <Templates>
-                <Require src="listview/templates/section"/>
-                <Require src="listview/templates/double"/>
-                <Require src="listview/templates/clickable/double"/>
-            </Templates>
-            <ListSection headerTitle="Wallet"/>
-            <ListSection headerTitle="General"/>
-        </ListView>
         <ListView platform="android" id="listView">
             <Templates>
                 <Require src="listview/templates/section"/>
                 <Require src="listview/templates/double"/>
                 <Require src="listview/templates/clickable/double"/>
                 <Require src="listview/templates/separator"/>
+            </Templates>
+            <ListSection headerTitle="Wallet"/>
+            <ListSection headerTitle="General"/>
+        </ListView>
+        <ListView platform="ios" id="listView" style="Ti.UI.iOS.ListViewStyle.GROUPED">
+            <Templates>
+                <Require src="listview/templates/section"/>
+                <Require src="listview/templates/double"/>
+                <Require src="listview/templates/clickable/double"/>
             </Templates>
             <ListSection headerTitle="Wallet"/>
             <ListSection headerTitle="General"/>
