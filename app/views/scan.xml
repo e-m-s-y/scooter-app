@@ -1,5 +1,5 @@
 <Alloy>
-    <Window id="window" title="Home" layout="vertical">
+    <Window id="window" title="New ride" layout="vertical">
         <WebView id="webView" url="core.html" onLoad="onWebViewLoadedHandler"/>
     </Window>
 </Alloy>
