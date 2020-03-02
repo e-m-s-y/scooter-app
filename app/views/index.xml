@@ -1,7 +1,7 @@
 <Alloy>
     <TabGroup id="tabGroup">
-        <Tab title="Home" icon="round_home_white_48.png">
-            <Require src="home"/>
+        <Tab title="Scan" icon="round_home_white_48.png">
+            <Require src="scan"/>
         </Tab>
     </TabGroup>
 </Alloy>

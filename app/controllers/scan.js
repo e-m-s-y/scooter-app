@@ -3,10 +3,9 @@ let isLoaded = false;
 function onWebViewLoadedHandler() {
 	$.webView.visible = false;
 	$.webView.height = 0;
+	$.description.visible = true;
 
 	isLoaded = true;
-
-	$.window.add(Ti.UI.createLabel({text: 'hello', color: 'red'}));
 }
 
 // Ti.App.addEventListener('transferTxCreated', function(event){
