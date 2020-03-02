@@ -21,7 +21,7 @@ manually build it. See more information below.
 4. Go to Account (top right) `->` Billing `->` Adjust Plan and select the free plan.
 5. Login via CLI with `appc login`.
 6. Clone this repo.
-7. Execute `cd app/lib && npm install`.
+7. Execute `npm run build` in the root of the project.
 7. Continue with Android or iOS below.
 
 ### Android
