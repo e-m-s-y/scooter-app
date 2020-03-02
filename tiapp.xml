@@ -2,7 +2,7 @@
 <ti:app xmlns:ti="http://ti.appcelerator.org">
     <id>com.emsy.arkscooters</id>
     <name>Ark Scooters</name>
-    <version>1.0</version>
+    <version>0.0.1</version>
     <publisher>emsy</publisher>
     <url/>
     <description>undefined</description>
@@ -16,6 +16,7 @@
     <property name="ti.ui.defaultunit" type="string">dp</property>
     <property name="run-on-main-thread" type="bool">true</property>
     <ios>
+        <default-background-color>#F44336</default-background-color>
         <enable-launch-screen-storyboard>true</enable-launch-screen-storyboard>
         <use-app-thinning>true</use-app-thinning>
         <plist>

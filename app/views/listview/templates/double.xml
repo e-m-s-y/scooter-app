@@ -1,0 +1,8 @@
+<Alloy>
+    <ItemTemplate name="double" height="55">
+        <View bindId="container" class="touchFeedbackEnabled">
+            <Label bindId="title" class="touchDisabled l16 r16 t4 fs16 mL1"/>
+            <Label bindId="subTitle" class="touchDisabled l16 r16 b4 mL1 tcGrey500"/>
+        </View>
+    </ItemTemplate>
+</Alloy>

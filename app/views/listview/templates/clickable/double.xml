@@ -1,0 +1,11 @@
+<Alloy>
+    <ItemTemplate name="doubleWithClick" height="55">
+        <View bindId="container" class="touchFeedbackEnabled">
+            <Label bindId="title" class="touchDisabled l16 r16 t4 fs16 mL1"/>
+            <Label bindId="subTitle" class="touchDisabled l16 r16 b4 mL1 tcGrey500"/>
+            <View class="touchDisabled r0" height="55" width="32">
+                <Label class="touchDisabled taCenter fs10 fwBold" text="〉" width="32"/>
+            </View>
+        </View>
+    </ItemTemplate>
+</Alloy>

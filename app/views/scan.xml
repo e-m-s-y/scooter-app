@@ -1,6 +1,0 @@
-<Alloy>
-    <Window id="window" title="Create a ride" layout="vertical">
-        <WebView id="webView" url="core.html" onLoad="onWebViewLoadedHandler"/>
-        <Label id="description" text="Scan the scooter's QR code." visible="false"/>
-    </Window>
-</Alloy>

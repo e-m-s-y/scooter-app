@@ -1,0 +1,7 @@
+<Alloy>
+    <ItemTemplate name="section" height="30">
+        <View bindId="container">
+            <Label bindId="title" class="touchDisabled l16 fs14"/>
+        </View>
+    </ItemTemplate>
+</Alloy>

@@ -1,25 +1,77 @@
+'Window[platform=ios]': {
+    backgroundColor: Alloy.CFG.styles.defaultBackgroundColor
+}
+
+'WebView[platform=ios]': {
+    backgroundColor: Alloy.CFG.styles.defaultBackgroundColor
+}
+
+'ListView[platform=ios]': {
+    backgroundColor: Alloy.CFG.styles.defaultBackgroundColor
+}
+
+'View[platform=ios]': {
+    backgroundColor: Alloy.CFG.styles.defaultBackgroundColor
+}
+
+'Label': {
+    color: Alloy.CFG.styles.inversedDefaultBackgroundColor
+}
+
+'.touchDisabled': {
+    touchEnabled: false
+}
+
+'.taTop': {
+    verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_TOP
+}
+
+'.taBottom': {
+    verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_BOTTOM
+}
+
+'.taLeft': {
+    textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT
+}
+
 '.taCenter': {
     textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
 }
 
+'.taRight': {
+    textAlign: Ti.UI.TEXT_ALIGNMENT_RIGHT
+}
+
 '.bgPrimary': {
-    backgroundColor: '#F44336'
+    backgroundColor: '#4CAF50'
 }
 
 '.bgPrimaryDark': {
-    backgroundColor: '#D32F2F'
+    backgroundColor: '#388E3C'
 }
 
-'.bgYellow': {
+'.bgYellow500': {
     backgroundColor: '#FFC107'
 }
 
-'.bgRed': {
+'.bgRed500': {
     backgroundColor: '#F44336'
 }
 
-'.bgGreen': {
+'.bgGreen50': {
+    backgroundColor: '#E8F5E9'
+}
+
+'.bgGreen500': {
     backgroundColor: '#4CAF50'
+}
+
+'.bgLightGreen500': {
+    backgroundColor: '#8BC34A'
+}
+
+'.bgGreen400': {
+    backgroundColor: '#66BB6A'
 }
 
 '.bgWhite': {
@@ -30,28 +82,77 @@
     backgroundColor: '#000000'
 }
 
-'.bgBlue': {
+'.bgBlue500': {
     backgroundColor: '#2196F3'
 }
 
-'.bgGrey': {
-    backgroundColor: '#AAAAAA'
+'.bgGrey400': {
+    backgroundColor: '#BDBDBD'
 }
 
-'.bgLightGrey': {
-    backgroundColor: '#EEEEEE'
+'.bgGrey300': {
+    backgroundColor: '#E0E0E0'
 }
 
-'.bgDarkGrey': {
-    backgroundColor: '#555555'
+'.bgGrey700': {
+    backgroundColor: '#616161'
 }
 
-'.bgOrange': {
+'.bgGrey800': {
+    backgroundColor: '#424242'
+}
+
+'.bgOrange500': {
     backgroundColor: '#FF9800'
+}
+
+'.touchFeedbackEnabled': {
+    touchFeedbackColor: '#E0E0E0',
+    touchFeedback: true
+}
+
+'ItemTemplate[platform=ios]': {
+   selectionStyle: 'none'
+}
+
+'.lUn': {
+    left: undefined,
+}
+
+'.rUn': {
+    right: undefined,
+}
+
+'.tUn': {
+    top: undefined,
+}
+
+'.bUn': {
+    bottom: undefined,
 }
 
 '.l0': {
     left: 0,
+}
+
+'.l4': {
+    left: 4,
+}
+
+'.l6': {
+    left: 6,
+}
+
+'.l8': {
+    left: 8,
+}
+
+'.l10': {
+    left: 10,
+}
+
+'.l12': {
+    left: 12,
 }
 
 '.l16': {
@@ -66,12 +167,40 @@
     right: 0,
 }
 
+'.r4': {
+    right: 4,
+}
+
+'.r8': {
+    right: 8,
+}
+
+'.r10': {
+    right: 10,
+}
+
+'.r12': {
+    right: 12,
+}
+
 '.r16': {
     right: 16,
 }
 
 '.r32': {
     right: 32,
+}
+
+'.r48': {
+    right: 48,
+}
+
+'.r64': {
+    right: 64,
+}
+
+'.t0': {
+    top: 0,
 }
 
 '.t1': {
@@ -86,20 +215,72 @@
     top: 8,
 }
 
+'.t12': {
+    top: 12,
+}
+
 '.t16': {
     top: 16,
+}
+
+'.t24': {
+    top: 24,
+}
+
+'.t26': {
+    top: 26,
+}
+
+'.t28': {
+    top: 28,
+}
+
+'.t32': {
+    top: 32,
+}
+
+'.t48': {
+    top: 48,
+}
+
+'.t64': {
+    top: 64,
+}
+
+'.b0': {
+    bottom: 0,
 }
 
 '.b4': {
     bottom: 4,
 }
 
+'.b6': {
+    bottom: 6,
+}
+
 '.b8': {
     bottom: 8,
 }
 
+'.b10': {
+    bottom: 10,
+}
+
+'.b12': {
+    bottom: 12,
+}
+
+'.b14': {
+    bottom: 14,
+}
+
 '.b16': {
     bottom: 16,
+}
+
+'.b32': {
+    bottom: 32,
 }
 
 '.tcBlack': {
@@ -107,28 +288,42 @@
 }
 
 '.tcWhite': {
-    color: '#FFFFFF'
+    color: '#FFFFFF',
+    titleAttributes: {
+       color: "#FFFFFF",
+    },
 }
 
-'.tcLightGrey': {
-    color: '#EEEEEE'
+'.tcGrey500': {
+    color: '#9E9E9E'
 }
 
-'.tcGrey': {
-    color: '#AAAAAA'
-}
-
-'.tcDarkGrey': {
-    color: '#555555'
+'.tcGrey800': {
+    color: '#424242'
 }
 
 '.br10': {
     borderRadius: 10
 }
 
+'.br8': {
+    borderRadius: 8
+}
+
+
+'.br2': {
+    borderRadius: 2
+}
+
 '.fwBold': {
     font: {
         fontWeight: 'bold'
+    }
+}
+
+'.fsItalic': {
+    font: {
+        fontStyle: 'italic'
     }
 }
 
@@ -162,8 +357,115 @@
     }
 }
 
-'.touchDisabled': {
-    touchEnabled: false
+'.mL1': {
+    maxLines: 1
+}
+
+'.mL2': {
+    maxLines: 2
+}
+
+'.hidden': {
+    visible: false
+}
+
+'.relatienummerTf': {
+    inputType: Ti.UI.INPUT_TYPE_CLASS_NUMBER,
+    maxLength: 12,
+    minLength: 1,
+    hintText: 'Relatienummer',
+    article: 'Het',
+    keyboardType: Ti.UI.KEYBOARD_TYPE_DECIMAL_PAD
+}
+
+'.polisnummerTf': {
+    maxLength: 36,
+    minLength: 2,
+    hintText: 'Polisnummer',
+    article: 'Het'
+}
+
+'.huisnummerTf': {
+    maxLength: 6,
+    minLength: 1,
+    hintText: 'Huisnummer',
+    article: 'Het'
+}
+
+'.huisnummerTf[platform=ios]': {
+    keyboardType: Ti.UI.KEYBOARD_TYPE_NUMBERS_PUNCTUATION
+}
+
+'.postcodeTf': {
+    maxLength: 7,
+    minLength: 6,
+    hintText: 'Postcode',
+    article: 'De'
+}
+
+'.postcodeTf[platform=ios]': {
+    keyboardType: Ti.UI.KEYBOARD_TYPE_NUMBERS_PUNCTUATION
+}
+
+'.usernameTf': {
+    maxLength: 50,
+    minLength: 4,
+    hintText: 'Gebruikersnaam',
+    article: 'De',
+    keyboardType: Ti.UI.KEYBOARD_TYPE_EMAIL,
+    autocapitalization: Ti.UI.TEXT_AUTOCAPITALIZATION_NONE,
+    autocorrect: false,
+    autofillType: Ti.UI.AUTOFILL_TYPE_USERNAME
+}
+
+'.passwordTf': {
+    maxLength: 50,
+    minLength: 8,
+    hintText: 'Wachtwoord',
+    article: 'Het',
+    autocorrect: false,
+}
+
+'.passwordVerificationTf': {
+    maxLength: 50,
+    minLength: 8,
+    hintText: 'Wachtwoord controle',
+    article: 'Het',
+    autocorrect: false,
+}
+
+'.telephoneNumberTf': {
+    maxLength: 10,
+    minLength: 10,
+    hintText: 'Mobiel telefoonnummer',
+    article: 'Het',
+    keyboardType: Ti.UI.KEYBOARD_TYPE_DECIMAL_PAD,
+    inputType: Ti.UI.INPUT_TYPE_CLASS_NUMBER
+}
+
+'.verificationCodeTf': {
+    maxLength: 6,
+    minLength: 6,
+    hintText: 'Verificatiecode',
+    article: 'De',
+    keyboardType: Ti.UI.KEYBOARD_TYPE_DECIMAL_PAD,
+    inputType: Ti.UI.INPUT_TYPE_CLASS_NUMBER
+}
+
+'.hSize': {
+    height: Ti.UI.SIZE,
+}
+
+'.wSize': {
+    width: Ti.UI.SIZE,
+}
+
+'.hFill': {
+    height: Ti.UI.FILL,
+}
+
+'.wFill': {
+    width: Ti.UI.FILL,
 }
 
 

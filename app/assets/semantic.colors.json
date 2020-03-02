@@ -1,0 +1,14 @@
+{
+  "defaultBackgroundColor": {
+    "dark": "#000000",
+    "light": "#ffffff"
+  },
+  "inversedDefaultBackgroundColor": {
+    "dark": "#ffffff",
+    "light": "#000000"
+  },
+  "separatorBackgroundColor": {
+    "dark": "#616161",
+    "light": "#E0E0E0"
+  }
+}

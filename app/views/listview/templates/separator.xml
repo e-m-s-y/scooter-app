@@ -1,5 +1,6 @@
 <Alloy>
-    <ItemTemplate name="separator" height="0.5">
-        <View class="bgLightGrey"/>
+    <ItemTemplate name="separator" height="1">
+        <View platform="android" class="bgGrey400"/>
+        <View platform="ios" backgroundColor="Alloy.CFG.styles.separatorBackgroundColor"/>
     </ItemTemplate>
 </Alloy>
