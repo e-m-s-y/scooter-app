@@ -106,7 +106,7 @@ createScooterRegistrationTx = function(data) {
 createRentalStartTx = function(data) {
 	log('Creating rental start tx...');
 
-	let tx = RentalStartBuilder.sessionId(ArkCrypto.Crypto.HashAlgorithms.sha256(data.sessionId).toString('hex'))
+	let tx = RentalStartBuilder.sessionId(data.sessionId)
 		.gps(data.gps.timestamp, data.gps.latitude, data.gps.longitude)
 		.rate(data.rate)
 		.amount(data.amount)
@@ -137,7 +137,7 @@ createRentalStartTx = function(data) {
 createRentalFinishTx = function(data) {
 	log('Creating rental finish tx...');
 
-	let tx = RentalFinishBuilder.sessionId(ArkCrypto.Crypto.HashAlgorithms.sha256(data.sessionId).toString('hex'))
+	let tx = RentalFinishBuilder.sessionId(data.sessionId)
 		.gps(data.gps[0].timestamp, data.gps[0].latitude, data.gps[0].longitude)
 		.gps(data.gps[1].timestamp, data.gps[1].latitude, data.gps[1].longitude)
 		.amount(data.amount)
