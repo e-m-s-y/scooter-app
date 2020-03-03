@@ -1,99 +1,110 @@
-if(OS_IOS) {
-	// https://github.com/appcelerator-modules/ti.barcode/blob/master/ios/example/app.js
-	// https://www.qr-code-generator.com/
-	const Barcode = require('ti.barcode');
+// https://github.com/appcelerator-modules/ti.barcode/blob/master/ios/example/app.js
+// https://www.qr-code-generator.com/
+const Barcode = require('ti.barcode');
 
-	Barcode.allowRotation = true;
-	Barcode.displayedMessage = 'Test message';
-	Barcode.allowMenu = false;
-	Barcode.allowInstructions = false;
-	Barcode.useLED = true;
+Barcode.allowRotation = true;
+Barcode.displayedMessage = 'Test message';
+Barcode.allowMenu = false;
+Barcode.allowInstructions = false;
+Barcode.useLED = true;
 
-	Barcode.addEventListener('error', function(e) {
-		alert('An Error occured: ' + e);
-	});
+Barcode.addEventListener('error', function(e) {
+	alert('An Error occured: ' + e);
+});
 
-	Barcode.addEventListener('cancel', function(e) {
-		console.log('Cancel');
-	});
+Barcode.addEventListener('cancel', function(e) {
+	console.log('Cancel');
+});
 
-	Barcode.addEventListener('success', function(e) {
-		const result = {
-			contentType: parseContentType(e.contentType),
-			result: parseResult(e),
-			format: e.format
-		};
+Barcode.addEventListener('success', function(e) {
+	const contents = {
+		type: parseContentType(e.contentType),
+		result: parseResult(e),
+		format: e.format
+	};
 
-		alert(result);
-		console.log(result);
-	});
+	console.log(contents);
 
-	function parseContentType(contentType) {
-		switch(contentType) {
-			case Barcode.URL:
-				return 'URL';
-			case Barcode.SMS:
-				return 'SMS';
-			case Barcode.TELEPHONE:
-				return 'TELEPHONE';
-			case Barcode.TEXT:
-				return 'TEXT';
-			case Barcode.CALENDAR:
-				return 'CALENDAR';
-			case Barcode.GEOLOCATION:
-				return 'GEOLOCATION';
-			case Barcode.EMAIL:
-				return 'EMAIL';
-			case Barcode.CONTACT:
-				return 'CONTACT';
-			case Barcode.BOOKMARK:
-				return 'BOOKMARK';
-			case Barcode.WIFI:
-				return 'WIFI';
-			default:
-				return 'UNKNOWN';
+	Ti.App.fireEvent('createRentalStartTx', {
+		sessionId: contents.result.hash,
+		nonce: nonce,
+		passphrase: passphrase,
+		recipientId: contents.result.recipientId,
+		amount: '1',
+		rate: contents.result.rate,
+		gps: {
+			timestamp: Date.now(),
+			latitude: contents.result.lat,
+			longitude: contents.result.lon,
 		}
-	}
+	});
+});
 
-	function parseResult(event) {
-		let msg = '';
-
-		switch(event.contentType) {
-			case Barcode.URL:
-				msg = event.result;
-				break;
-			case Barcode.SMS:
-				msg = JSON.stringify(event.data);
-				break;
-			case Barcode.TELEPHONE:
-				msg = event.data.phonenumber;
-				break;
-			case Barcode.TEXT:
-				msg = event.result;
-				break;
-			case Barcode.CALENDAR:
-				msg = JSON.stringify(event.data);
-				break;
-			case Barcode.GEOLOCATION:
-				msg = JSON.stringify(event.data);
-				break;
-			case Barcode.EMAIL:
-				msg = event.data;
-				break;
-			case Barcode.CONTACT:
-				msg = JSON.stringify(event.data);
-				break;
-			case Barcode.BOOKMARK:
-				msg = JSON.stringify(event.data);
-				break;
-			case Barcode.WIFI:
-				return JSON.stringify(event.data);
-			default:
-				msg = 'unknown content type';
-				break;
-		}
-		return msg;
+function parseContentType(contentType) {
+	switch(contentType) {
+		case Barcode.URL:
+			return 'URL';
+		case Barcode.SMS:
+			return 'SMS';
+		case Barcode.TELEPHONE:
+			return 'TELEPHONE';
+		case Barcode.TEXT:
+			return 'TEXT';
+		case Barcode.CALENDAR:
+			return 'CALENDAR';
+		case Barcode.GEOLOCATION:
+			return 'GEOLOCATION';
+		case Barcode.EMAIL:
+			return 'EMAIL';
+		case Barcode.CONTACT:
+			return 'CONTACT';
+		case Barcode.BOOKMARK:
+			return 'BOOKMARK';
+		case Barcode.WIFI:
+			return 'WIFI';
+		default:
+			return 'UNKNOWN';
 	}
+}
+
+function parseResult(event) {
+	let msg = '';
+
+	switch(event.contentType) {
+		case Barcode.URL:
+			msg = event.result;
+			break;
+		case Barcode.SMS:
+			msg = JSON.stringify(event.data);
+			break;
+		case Barcode.TELEPHONE:
+			msg = event.data.phonenumber;
+			break;
+		case Barcode.TEXT:
+			msg = uriToObject(event.result);
+			break;
+		case Barcode.CALENDAR:
+			msg = JSON.stringify(event.data);
+			break;
+		case Barcode.GEOLOCATION:
+			msg = JSON.stringify(event.data);
+			break;
+		case Barcode.EMAIL:
+			msg = event.data;
+			break;
+		case Barcode.CONTACT:
+			msg = JSON.stringify(event.data);
+			break;
+		case Barcode.BOOKMARK:
+			msg = JSON.stringify(event.data);
+			break;
+		case Barcode.WIFI:
+			return JSON.stringify(event.data);
+		default:
+			msg = 'unknown content type';
+			break;
+	}
+	return msg;
 }
 
 function onWebViewLoadedHandler() {
@@ -227,6 +238,7 @@ function uriToObject(uri) {
 	return object;
 }
 
-const uri = 'rad:TRXA2NUACckkYwWnS9JRkATQA453ukAcD1?hash=0b6614343a95b6dd957b9d118250c589dfd221fe4769d6c83caa93ca8e946138&rate=370000000';
 
+const uri = `rad:TRXA2NUACckkYwWnS9JRkATQA453ukAcD1?hash=0b6614343a95b6dd957b9d118250c589dfd221fe4769d6c83caa93ca8e946138&rate=370000000&lat=-180.222222&lon=1.111111`;
+console.log(uri);
 console.log(uriToObject(uri));
