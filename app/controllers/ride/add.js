@@ -1,6 +1,6 @@
 if(OS_IOS) {
 	// https://github.com/appcelerator-modules/ti.barcode/blob/master/ios/example/app.js
-// https://www.qr-code-generator.com/
+	// https://www.qr-code-generator.com/
 	const Barcode = require('ti.barcode');
 
 	Barcode.allowRotation = true;
@@ -208,3 +208,25 @@ Ti.App.addEventListener('rentalFinishTxCreated', broadcastTxHandler);
 // 		}]
 // 	});
 // });
+
+function uriToObject(uri) {
+	let pairs = uri.split('?');
+	const object = {
+		recipientId: pairs[0].split(':')[1]
+	};
+	pairs = pairs[1].split('&');
+
+	for(let i in pairs) {
+		if(pairs.hasOwnProperty(i)) {
+			const split = pairs[i].split('=');
+
+			object[decodeURIComponent(split[0])] = decodeURIComponent(split[1]);
+		}
+	}
+
+	return object;
+}
+
+const uri = 'rad:TRXA2NUACckkYwWnS9JRkATQA453ukAcD1?hash=0b6614343a95b6dd957b9d118250c589dfd221fe4769d6c83caa93ca8e946138&rate=370000000';
+
+console.log(uriToObject(uri));

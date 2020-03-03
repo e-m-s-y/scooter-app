@@ -58,7 +58,7 @@ socket.on('block.applied', (block) => {
 
 	section.items = items;
 
-	console.log('Added new block');
+	// console.log('Added new block');
 });
 
 socket.on('disconnect', (reason) => {
