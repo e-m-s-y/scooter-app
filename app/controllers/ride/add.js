@@ -27,7 +27,7 @@ Barcode.addEventListener('success', function(e) {
 
 	Ti.App.fireEvent('createRentalStartTx', {
 		sessionId: contents.result.hash,
-		nonce: nonce,
+		nonce: Ti.App.Properties.getObject('session', sessionTemplate).nonce,
 		passphrase: passphrase,
 		recipientId: contents.result.recipientId,
 		amount: '1',
@@ -123,14 +123,11 @@ function onStartGalleryScanHandler() {
 }
 
 const sessionTemplate = {
-	nonce: 0 // TODO add a way to override this in the settings.
+	nonce: 0
 };
-
-const session = Ti.App.Properties.getObject('session', sessionTemplate);
-let nonce = session.nonce;
 const passphrase = 'jar width fee ostrich fantasy vehicle thank doctor teach family bottom trap';
 const recipient = 'TGGUtM6KPdWn7LSpNcWj1y5ngGa8xJqxHf';
-const sessionId = 'hello';
+const sessionId = '0b6614343a95b6dd957b9d118250c589dfd221fe4769d6c83caa93ca8e946138';
 
 function broadcastTxHandler(event) {
 	console.log('Creating XHR request...');
@@ -138,11 +135,20 @@ function broadcastTxHandler(event) {
 	const xhr = Ti.Network.createHTTPClient();
 
 	xhr.onload = function() {
-		console.log(this.responseText);
+		const response = JSON.parse(this.responseText);
 
-		session.nonce = ++nonce;
+		if(response.data.accept.length) {
+			const session = Ti.App.Properties.getObject('session', sessionTemplate);
 
-		Ti.App.Properties.setObject('session', session);
+			session.nonce = ++session.nonce;
+
+			Ti.App.Properties.setObject('session', session);
+
+			alert('Rental start tx has been sent to Radians, check event tab for results.')
+		} else {
+			console.log(this.responseText);
+			alert('Tx not accepted, see logs.');
+		}
 	};
 
 	xhr.open('POST', 'https://radians.nl/api/transactions');
@@ -163,7 +169,7 @@ Ti.App.addEventListener('rentalFinishTxCreated', broadcastTxHandler);
 
 // $.webView.addEventListener('load', function() {
 // 	Ti.App.fireEvent('createTransferTx', {
-// 		nonce: nonce,
+// 		nonce: Ti.App.Properties.getObject('session', sessionTemplate).nonce,
 // 		passphrase: passphrase,
 // 		recipient: 'TEBFiv6emzoY6i4znYGrFeWiKyTRimhNWe',
 // 		vendorField: 'Hello from the app!',
@@ -174,7 +180,7 @@ Ti.App.addEventListener('rentalFinishTxCreated', broadcastTxHandler);
 // $.webView.addEventListener('load', function() {
 // 	Ti.App.fireEvent('createScooterRegistrationTx', {
 // 		id: '0123456789',
-// 		nonce: nonce,
+// 		nonce: Ti.App.Properties.getObject('session', sessionTemplate).nonce,
 // 		passphrase: passphrase,
 // 		recipient: recipient,
 // 		vendorField: 'Hello from the app!',
@@ -185,7 +191,7 @@ Ti.App.addEventListener('rentalFinishTxCreated', broadcastTxHandler);
 // $.webView.addEventListener('load', function() {
 // 	Ti.App.fireEvent('createRentalStartTx', {
 // 		sessionId: sessionId,
-// 		nonce: nonce,
+// 		nonce: Ti.App.Properties.getObject('session', sessionTemplate).nonce,
 // 		passphrase: passphrase,
 // 		recipientId: recipient,
 // 		vendorField: 'Hello from the app!',
@@ -202,7 +208,7 @@ Ti.App.addEventListener('rentalFinishTxCreated', broadcastTxHandler);
 // $.webView.addEventListener('load', function() {
 // 	Ti.App.fireEvent('createRentalFinishTx', {
 // 		sessionId: sessionId,
-// 		nonce: nonce,
+// 		nonce: Ti.App.Properties.getObject('session', sessionTemplate).nonce,
 // 		passphrase: passphrase,
 // 		recipientId: recipient,
 // 		vendorField: 'Hello from the app!',
@@ -239,6 +245,7 @@ function uriToObject(uri) {
 }
 
 
-const uri = `rad:TRXA2NUACckkYwWnS9JRkATQA453ukAcD1?hash=0b6614343a95b6dd957b9d118250c589dfd221fe4769d6c83caa93ca8e946138&rate=370000000&lat=-180.222222&lon=1.111111`;
+console.log('nonce ' + Ti.App.Properties.getObject('session', sessionTemplate).nonce);
+const uri = `rad:${recipient}?hash=${sessionId}&rate=370000000&lat=-180.222222&lon=1.111111`;
 console.log(uri);
 console.log(uriToObject(uri));
