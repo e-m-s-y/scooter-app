@@ -10,7 +10,7 @@
             <ListSection headerTitle="Wallet"/>
             <ListSection headerTitle="General"/>
         </ListView>
-        <ListView platform="ios" id="listView" style="Ti.UI.iOS.ListViewStyle.GROUPED">
+        <ListView platform="ios" id="listView" onItemclick="onItemClickHandler" style="Ti.UI.iOS.ListViewStyle.GROUPED">
             <Templates>
                 <Require src="listview/templates/section"/>
                 <Require src="listview/templates/double"/>
