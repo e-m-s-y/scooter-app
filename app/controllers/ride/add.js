@@ -2,11 +2,11 @@
 // https://www.qr-code-generator.com/
 const Barcode = require('ti.barcode');
 
-Barcode.allowRotation = true;
-Barcode.displayedMessage = 'Test message';
+Barcode.allowRotation = false;
+Barcode.displayedMessage = '';
 Barcode.allowMenu = false;
 Barcode.allowInstructions = false;
-Barcode.useLED = true;
+Barcode.useLED = false;
 
 Barcode.addEventListener('error', function(e) {
 	alert('An Error occured: ' + e);
@@ -17,6 +17,8 @@ Barcode.addEventListener('cancel', function(e) {
 });
 
 Barcode.addEventListener('success', function(e) {
+	Barcode.cancel();
+
 	const contents = {
 		type: parseContentType(e.contentType),
 		result: parseResult(e),
@@ -35,7 +37,7 @@ Barcode.addEventListener('success', function(e) {
 		gps: {
 			timestamp: Date.now(),
 			latitude: contents.result.lat,
-			longitude: contents.result.lon,
+			longitude: contents.result.lon
 		}
 	});
 });
@@ -118,6 +120,39 @@ function onStartGalleryScanHandler() {
 			Barcode.parse({
 				image: event.media
 			});
+		}
+	});
+}
+
+function hasCameraPermission(callback) {
+	if(OS_ANDROID) {
+		if(Ti.Media.hasCameraPermissions() && callback) {
+			callback(true);
+		} else {
+			Ti.Media.requestCameraPermissions(function(e) {
+				if(callback) {
+					callback(e.success);
+				}
+			});
+		}
+	} else if(OS_IOS && callback) {
+		// NSCameraUsageDescription in tiapp.xml is required.
+		callback(true);
+	}
+}
+
+function onStartCameraScanHandler() {
+	hasCameraPermission(function(hasPermission) {
+		if(hasPermission) {
+			Barcode.capture({
+				animate: true,
+				overlay: $.cameraOverlay,
+				showCancel: true,
+				showRectangle: true,
+				keepOpen: true
+			});
+		} else {
+			alert('No permission to use the camera. If you want to scan codes please give the app permissions in the settings of your phone.');
 		}
 	});
 }

@@ -40,6 +40,8 @@
                 <false/>
                 <key>UIStatusBarStyle</key>
                 <string>UIStatusBarStyleDefault</string>
+                <key>NSCameraUsageDescription</key>
+                <string>In order to scan codes we need access to your camera. Do you want to give permission and continue?</string>
             </dict>
         </plist>
     </ios>

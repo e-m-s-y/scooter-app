@@ -355,6 +355,12 @@
     }
 }
 
+'.fs18': {
+    font: {
+        fontSize: 18
+    }
+}
+
 '.fs20': {
     font: {
         fontSize: 20
