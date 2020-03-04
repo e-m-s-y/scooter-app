@@ -202,64 +202,64 @@ Ti.App.addEventListener('scooterRegistrationTxCreated', broadcastTxHandler);
 Ti.App.addEventListener('rentalStartTxCreated', broadcastTxHandler);
 Ti.App.addEventListener('rentalFinishTxCreated', broadcastTxHandler);
 
-// $.webView.addEventListener('load', function() {
-// 	Ti.App.fireEvent('createTransferTx', {
-// 		nonce: Ti.App.Properties.getObject('session', sessionTemplate).nonce,
-// 		passphrase: passphrase,
-// 		recipient: 'TEBFiv6emzoY6i4znYGrFeWiKyTRimhNWe',
-// 		vendorField: 'Hello from the app!',
-// 		amount: 11
-// 	});
-// });
+function onSendScooterRegistrationTxHandler() {
+	Ti.App.fireEvent('createScooterRegistrationTx', {
+		id: '0123456789',
+		nonce: Ti.App.Properties.getObject('session', sessionTemplate).nonce,
+		passphrase: passphrase,
+		recipient: recipient,
+		vendorField: 'Hello from the app!',
+		amount: 33
+	});
+}
 
-// $.webView.addEventListener('load', function() {
-// 	Ti.App.fireEvent('createScooterRegistrationTx', {
-// 		id: '0123456789',
-// 		nonce: Ti.App.Properties.getObject('session', sessionTemplate).nonce,
-// 		passphrase: passphrase,
-// 		recipient: recipient,
-// 		vendorField: 'Hello from the app!',
-// 		amount: 33
-// 	});
-// });
+function onSendRentalStartTxHandler() {
+	Ti.App.fireEvent('createRentalStartTx', {
+		sessionId: sessionId,
+		nonce: Ti.App.Properties.getObject('session', sessionTemplate).nonce,
+		passphrase: passphrase,
+		recipientId: recipient,
+		vendorField: 'Hello from the app!',
+		amount: 55,
+		rate: '5',
+		gps: {
+			timestamp: Date.now(),
+			latitude: '-180.222222',
+			longitude: '1.111111',
+		}
+	});
+}
 
-// $.webView.addEventListener('load', function() {
-// 	Ti.App.fireEvent('createRentalStartTx', {
-// 		sessionId: sessionId,
-// 		nonce: Ti.App.Properties.getObject('session', sessionTemplate).nonce,
-// 		passphrase: passphrase,
-// 		recipientId: recipient,
-// 		vendorField: 'Hello from the app!',
-// 		amount: 55,
-// 		rate: '5',
-// 		gps: {
-// 			timestamp: Date.now(),
-// 			latitude: '-180.222222',
-// 			longitude: '1.111111',
-// 		}
-// 	});
-// });
+function onSendRentalFinishTxHandler() {
+	Ti.App.fireEvent('createRentalFinishTx', {
+		sessionId: sessionId,
+		nonce: Ti.App.Properties.getObject('session', sessionTemplate).nonce,
+		passphrase: passphrase,
+		recipientId: recipient,
+		vendorField: 'Hello from the app!',
+		amount: 333,
+		containsRefund: true,
+		gps: [{
+			timestamp: Date.now(),
+			latitude: '10.111111',
+			longitude: '-20.222222',
+		}, {
+			timestamp: Date.now() + 90 * 1000,
+			latitude: '15.111111',
+			longitude: '-25.222222',
+		}]
+	});
+}
 
-// $.webView.addEventListener('load', function() {
-// 	Ti.App.fireEvent('createRentalFinishTx', {
-// 		sessionId: sessionId,
-// 		nonce: Ti.App.Properties.getObject('session', sessionTemplate).nonce,
-// 		passphrase: passphrase,
-// 		recipientId: recipient,
-// 		vendorField: 'Hello from the app!',
-// 		amount: 333,
-// 		containsRefund: true,
-// 		gps: [{
-// 			timestamp: Date.now(),
-// 			latitude: '10.111111',
-// 			longitude: '-20.222222',
-// 		}, {
-// 			timestamp: Date.now() + 90 * 1000,
-// 			latitude: '15.111111',
-// 			longitude: '-25.222222',
-// 		}]
-// 	});
-// });
+function onSendTransferTxHandler() {
+	Ti.App.fireEvent('createTransferTx', {
+		nonce: Ti.App.Properties.getObject('session', sessionTemplate).nonce,
+		passphrase: passphrase,
+		recipient: 'TEBFiv6emzoY6i4znYGrFeWiKyTRimhNWe',
+		vendorField: 'Hello from the app!',
+		amount: 11
+	});
+}
 
 function uriToObject(uri) {
 	let pairs = uri.split('?');

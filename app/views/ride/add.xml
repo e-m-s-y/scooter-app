@@ -1,9 +1,18 @@
 <Alloy>
     <Window id="window" title="Add a ride" layout="vertical">
         <WebView id="webView" url="/core.html" onLoad="onWebViewLoadedHandler"/>
-        <Button id="scanFromCamera" class="t16 fs18" title="Scan code from camera" onClick="onStartCameraScanHandler"/>
+        <Button class="t16 fs18" title="Scan code from camera" onClick="onStartCameraScanHandler"/>
         <Label class="t4" text="or"/>
-        <Button id="scanFromGallery" class="t4 fs18" title="Scan image from gallery" onClick="onStartGalleryScanHandler"/>
+        <Button class="t4 fs18" title="Scan image from gallery" onClick="onStartGalleryScanHandler"/>
+        <View class="hFill">
+            <View class="hSize b0" layout="vertical">
+                <Label class="b8" text="------------------ debug ------------------"/>
+                <Button class="b8 fs18" title="Send rental start tx" onClick="onSendRentalStartTxHandler"/>
+                <Button class="b8 fs18" title="Send rental finish tx" onClick="onSendRentalFinishTxHandler"/>
+                <Button class="b8 fs18" title="Send scooter registration tx" onClick="onSendScooterRegistrationTxHandler"/>
+                <Button class="b8 fs18" title="Send transfer tx" onClick="onSendTransferTxHandler"/>
+            </View>
+        </View>
     </Window>
     <View id="cameraOverlay" class="t0 r0 b0 r0" backgroundColor="transparent"/>
 </Alloy>
