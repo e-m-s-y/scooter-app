@@ -21,7 +21,7 @@ if( ! Ti.App.Properties.getObject('passphrase', false)) {
 }
 
 function promptNonce() {
-	if( ! Ti.App.Properties.getObject('nonce', false)) {
+	if(Ti.App.Properties.getObject('nonce', -1) === -1) {
 		const dialog = Ti.UI.createAlertDialog({
 			title: 'Set your nonce. You can also change this value in the settings tab.',
 			style: Ti.UI.iOS.AlertDialogStyle.PLAIN_TEXT_INPUT,
