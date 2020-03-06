@@ -1,18 +1,15 @@
 <Alloy>
-    <Window id="window" title="Add a ride" layout="vertical">
+    <Window id="window" title="All rides" layout="vertical" onFocus="reloadList">
+        <RightNavButtons>
+            <Button image="add_white_48.png" onClick="onAddButtonClickHandler"/>
+        </RightNavButtons>
         <WebView id="webView" url="/core.html" onLoad="onWebViewLoadedHandler"/>
-        <Button class="t16 fs18" title="Scan code from camera" onClick="onStartCameraScanHandler"/>
-        <Label class="t4" text="or"/>
-        <Button class="t4 fs18" title="Scan image from gallery" onClick="onStartGalleryScanHandler"/>
-        <View class="hFill">
-            <View class="hSize b0" layout="vertical">
-                <Label class="b8" text="------------------ debug ------------------"/>
-                <Button class="b8 fs18" title="Send rental start tx" onClick="onSendRentalStartTxHandler"/>
-                <Button class="b8 fs18" title="Send rental finish tx" onClick="onSendRentalFinishTxHandler"/>
-                <Button class="b8 fs18" title="Send scooter registration tx" onClick="onSendScooterRegistrationTxHandler"/>
-                <Button class="b8 fs18" title="Send transfer tx" onClick="onSendTransferTxHandler"/>
-            </View>
-        </View>
+        <ListView id="listView" onItemclick="onItemClickHandler">
+            <Templates>
+                <Require src="listview/templates/clickable/double"/>
+                <Require src="listview/templates/notice"/>
+            </Templates>
+            <ListSection/>
+        </ListView>
     </Window>
-    <View id="cameraOverlay" class="t0 r0 b0 r0" backgroundColor="transparent"/>
 </Alloy>

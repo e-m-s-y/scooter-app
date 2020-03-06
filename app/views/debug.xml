@@ -1,0 +1,10 @@
+<Alloy>
+    <Window id="window" title="Debug">
+        <View class="hSize b0" layout="vertical">
+            <Button class="b8 fs18" title="Send rental start tx" onClick="onSendRentalStartTxHandler"/>
+            <Button class="b8 fs18" title="Send rental finish tx" onClick="onSendRentalFinishTxHandler"/>
+            <Button class="b8 fs18" title="Send scooter registration tx" onClick="onSendScooterRegistrationTxHandler"/>
+            <Button class="b8 fs18" title="Send transfer tx" onClick="onSendTransferTxHandler"/>
+        </View>
+    </Window>
+</Alloy>

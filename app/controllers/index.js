@@ -43,3 +43,42 @@ function promptNonce() {
 		dialog.show();
 	}
 }
+
+function broadcastTxHandler(event) {
+	console.log('Creating XHR request...');
+
+	const xhr = Ti.Network.createHTTPClient();
+
+	xhr.onload = function() {
+		const response = JSON.parse(this.responseText);
+
+		if(response.data.accept.length) {
+			let nonce = Ti.App.Properties.getObject('nonce');
+
+			Ti.App.Properties.setObject('nonce', ++nonce);
+			alert('Transaction has been accepted by Radians. It may take up to 8 seconds for the transaction to be forged.')
+		} else if(response.errors && response.errors[event.struct.id]) {
+			console.log(this.responseText);
+			alert(response.errors[event.struct.id][0].message);
+		} else {
+			console.log(this.responseText);
+			alert('Radians did not accept the tx.');
+		}
+	};
+
+	xhr.open('POST', 'https://radians.nl/api/transactions');
+	xhr.setRequestHeader('content-type', 'application/json');
+
+	const data = JSON.stringify({
+		transactions: [event.struct]
+	});
+
+	console.log('Sending XHR request with data %O', data);
+	xhr.send(data);
+}
+
+Ti.App.addEventListener('transferTxCreated', broadcastTxHandler);
+Ti.App.addEventListener('scooterRegistrationTxCreated', broadcastTxHandler);
+Ti.App.addEventListener('rentalStartTxCreated', broadcastTxHandler);
+Ti.App.addEventListener('rentalFinishTxCreated', broadcastTxHandler);
+

@@ -64,11 +64,16 @@ function loadWalletSection() {
 	}];
 }
 
-function hardReset() {
+function clearWalletData() {
 	Ti.App.Properties.removeProperty('nonce');
 	Ti.App.Properties.removeProperty('passphrase');
 	reloadList();
 	alert('All session data has been removed.');
+}
+
+function clearRidesData() {
+	Ti.App.Properties.removeProperty('rentalStartBlocks');
+	alert('The rides cache has been cleared.');
 }
 
 function loadGeneralSection() {
@@ -77,10 +82,15 @@ function loadGeneralSection() {
 		subTitle: {text: Ti.App.version},
 		template: 'double'
 	}, {
-		title: {text: 'Hard reset'},
-		subTitle: {text: 'This will erase all session data'},
+		title: {text: 'Reset wallet data'},
+		subTitle: {text: 'This will clear your passphrase and nonce.'},
 		template: 'doubleWithClick',
-		payload: {callback: hardReset}
+		payload: {callback: clearWalletData}
+	}, {
+		title: {text: 'Clear cache'},
+		subTitle: {text: 'This will clear all cached rides.'},
+		template: 'doubleWithClick',
+		payload: {callback: clearRidesData}
 	}];
 }
 

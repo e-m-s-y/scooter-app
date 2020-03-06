@@ -1,0 +1,8 @@
+<Alloy>
+    <Window id="window" title="Add a ride" layout="vertical" onClose="onCloseHandler">
+        <Button class="t16 fs18" title="Scan from camera" onClick="onStartCameraScanHandler"/>
+        <Label class="t4" text="or"/>
+        <Button class="t4 fs18" title="Scan from image" onClick="onStartGalleryScanHandler"/>
+    </Window>
+    <View id="cameraOverlay" class="t0 r0 b0 r0" backgroundColor="transparent"/>
+</Alloy>

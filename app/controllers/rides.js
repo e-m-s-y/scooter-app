@@ -1,271 +1,72 @@
-// https://github.com/appcelerator-modules/ti.barcode/blob/master/ios/example/app.js
-// https://www.qr-code-generator.com/
-const Barcode = require('ti.barcode');
-
-Barcode.allowRotation = false;
-Barcode.displayedMessage = '';
-Barcode.allowMenu = false;
-Barcode.allowInstructions = false;
-Barcode.useLED = false;
-
-Barcode.addEventListener('error', function(e) {
-	alert('An Error occured: ' + e);
-});
-
-Barcode.addEventListener('cancel', function(e) {
-	console.log('Cancel');
-});
-
-Barcode.addEventListener('success', function(e) {
-	Barcode.cancel();
-
-	const contents = {
-		type: parseContentType(e.contentType),
-		result: parseResult(e),
-		format: e.format
-	};
-
-	Ti.App.fireEvent('createRentalStartTx', {
-		sessionId: contents.result.hash,
-		nonce: Ti.App.Properties.getObject('nonce', 0),
-		passphrase: Ti.App.Properties.getObject('passphrase', ''),
-		recipientId: contents.result.recipientId,
-		amount: '1',
-		rate: contents.result.rate,
-		gps: {
-			timestamp: Date.now(),
-			latitude: contents.result.lat,
-			longitude: contents.result.lon
-		}
-	});
-});
-
-function parseContentType(contentType) {
-	switch(contentType) {
-		case Barcode.URL:
-			return 'URL';
-		case Barcode.SMS:
-			return 'SMS';
-		case Barcode.TELEPHONE:
-			return 'TELEPHONE';
-		case Barcode.TEXT:
-			return 'TEXT';
-		case Barcode.CALENDAR:
-			return 'CALENDAR';
-		case Barcode.GEOLOCATION:
-			return 'GEOLOCATION';
-		case Barcode.EMAIL:
-			return 'EMAIL';
-		case Barcode.CONTACT:
-			return 'CONTACT';
-		case Barcode.BOOKMARK:
-			return 'BOOKMARK';
-		case Barcode.WIFI:
-			return 'WIFI';
-		default:
-			return 'UNKNOWN';
-	}
-}
-
-function parseResult(event) {
-	let msg = '';
-
-	switch(event.contentType) {
-		case Barcode.URL:
-			msg = event.result;
-			break;
-		case Barcode.SMS:
-			msg = JSON.stringify(event.data);
-			break;
-		case Barcode.TELEPHONE:
-			msg = event.data.phonenumber;
-			break;
-		case Barcode.TEXT:
-			msg = uriToObject(event.result);
-			break;
-		case Barcode.CALENDAR:
-			msg = JSON.stringify(event.data);
-			break;
-		case Barcode.GEOLOCATION:
-			msg = JSON.stringify(event.data);
-			break;
-		case Barcode.EMAIL:
-			msg = event.data;
-			break;
-		case Barcode.CONTACT:
-			msg = JSON.stringify(event.data);
-			break;
-		case Barcode.BOOKMARK:
-			msg = JSON.stringify(event.data);
-			break;
-		case Barcode.WIFI:
-			return JSON.stringify(event.data);
-		default:
-			msg = 'unknown content type';
-			break;
-	}
-	return msg;
-}
+let isReady = false;
 
 function onWebViewLoadedHandler() {
 	$.webView.visible = false;
 	$.webView.height = 0;
+	isReady = true;
 }
 
-function onStartGalleryScanHandler() {
-	Ti.Media.openPhotoGallery({
-		success: function(event) {
-			Barcode.parse({
-				image: event.media
-			});
-		}
-	});
+function onAddButtonClickHandler() {
+	if( ! isReady) {
+		return alert('The app is still loading, try again later...');
+	}
+
+	Ti.UI.createNavigationWindow({
+		window: Alloy.createController('ride/new').getView()
+	}).open({modal: true});
 }
 
-function hasCameraPermission(callback) {
-	if(OS_ANDROID) {
-		if(Ti.Media.hasCameraPermissions() && callback) {
-			callback(true);
-		} else {
-			Ti.Media.requestCameraPermissions(function(e) {
-				if(callback) {
-					callback(e.success);
-				}
-			});
-		}
-	} else if(OS_IOS && callback) {
-		// NSCameraUsageDescription in tiapp.xml is required.
-		callback(true);
+function onItemClickHandler(e) {
+	const listItem = $.listView.sections[e.sectionIndex].getItemAt(e.itemIndex);
+
+	if (listItem.payload) {
+		alert(listItem.payload);
 	}
 }
 
-function onStartCameraScanHandler() {
-	hasCameraPermission(function(hasPermission) {
-		if(hasPermission) {
-			Barcode.capture({
-				animate: true,
-				overlay: $.cameraOverlay,
-				showCancel: true,
-				showRectangle: true,
-				keepOpen: true
-			});
-		} else {
-			alert('No permission to use the camera. If you want to scan codes please give the app permissions in the settings of your phone.');
-		}
-	});
-}
+function reloadList() {
+	const rentalStartBlocks = Ti.App.Properties.getObject('rentalStartBlocks', []);
+	const templates = [];
 
-const recipient = 'TGGUtM6KPdWn7LSpNcWj1y5ngGa8xJqxHf';
-const sessionId = '0b6614343a95b6dd957b9d118250c589dfd221fe4769d6c83caa93ca8e946138';
+	for(let block of rentalStartBlocks) {
+		console.log(block);
 
-function broadcastTxHandler(event) {
-	console.log('Creating XHR request...');
-
-	const xhr = Ti.Network.createHTTPClient();
-
-	xhr.onload = function() {
-		const response = JSON.parse(this.responseText);
-
-		if(response.data.accept.length) {
-			let nonce = Ti.App.Properties.getObject('nonce');
-
-			Ti.App.Properties.setObject('nonce', ++nonce);
-			alert('Rental start tx has been sent to Radians, check event tab for results.')
-		} else {
-			console.log(this.responseText);
-			alert('Tx not accepted, see logs.');
-		}
-	};
-
-	xhr.open('POST', 'https://radians.nl/api/transactions');
-	xhr.setRequestHeader('content-type', 'application/json');
-
-	const data = JSON.stringify({
-		transactions: [event.struct]
-	});
-
-	console.log('Sending XHR request with data %O', data);
-	xhr.send(data);
-}
-
-Ti.App.addEventListener('transferTxCreated', broadcastTxHandler);
-Ti.App.addEventListener('scooterRegistrationTxCreated', broadcastTxHandler);
-Ti.App.addEventListener('rentalStartTxCreated', broadcastTxHandler);
-Ti.App.addEventListener('rentalFinishTxCreated', broadcastTxHandler);
-
-function onSendScooterRegistrationTxHandler() {
-	Ti.App.fireEvent('createScooterRegistrationTx', {
-		id: '0123456789',
-		nonce: Ti.App.Properties.getObject('nonce', 0),
-		passphrase: Ti.App.Properties.getObject('passphrase', ''),
-		recipient: recipient,
-		vendorField: 'Hello from the app!',
-		amount: 33
-	});
-}
-
-function onSendRentalStartTxHandler() {
-	Ti.App.fireEvent('createRentalStartTx', {
-		sessionId: sessionId,
-		nonce: Ti.App.Properties.getObject('nonce', 0),
-		passphrase: Ti.App.Properties.getObject('passphrase', ''),
-		recipientId: recipient,
-		vendorField: 'Hello from the app!',
-		amount: 55,
-		rate: '5',
-		gps: {
-			timestamp: Date.now(),
-			latitude: '-180.222222',
-			longitude: '1.111111',
-		}
-	});
-}
-
-function onSendRentalFinishTxHandler() {
-	Ti.App.fireEvent('createRentalFinishTx', {
-		sessionId: sessionId,
-		nonce: Ti.App.Properties.getObject('nonce', 0),
-		passphrase: Ti.App.Properties.getObject('passphrase', ''),
-		recipientId: recipient,
-		vendorField: 'Hello from the app!',
-		amount: 333,
-		containsRefund: true,
-		gps: [{
-			timestamp: Date.now(),
-			latitude: '10.111111',
-			longitude: '-20.222222',
-		}, {
-			timestamp: Date.now() + 90 * 1000,
-			latitude: '15.111111',
-			longitude: '-25.222222',
-		}]
-	});
-}
-
-function onSendTransferTxHandler() {
-	Ti.App.fireEvent('createTransferTx', {
-		nonce: Ti.App.Properties.getObject('nonce', 0),
-		passphrase: Ti.App.Properties.getObject('passphrase', ''),
-		recipient: 'TEBFiv6emzoY6i4znYGrFeWiKyTRimhNWe',
-		vendorField: 'Hello from the app!',
-		amount: 11
-	});
-}
-
-function uriToObject(uri) {
-	let pairs = uri.split('?');
-	const object = {
-		recipientId: pairs[0].split(':')[1]
-	};
-	pairs = pairs[1].split('&');
-
-	for(let i in pairs) {
-		if(pairs.hasOwnProperty(i)) {
-			const split = pairs[i].split('=');
-
-			object[decodeURIComponent(split[0])] = decodeURIComponent(split[1]);
-		}
+		templates.push({
+			title: {text: 'ID ' + block.blockId},
+			subTitle: {text: 'asset ' + JSON.stringify(block.asset)},
+			payload: block.asset,
+			template: 'doubleWithClick'
+		});
 	}
 
-	return object;
+	if( ! templates.length) {
+		templates.push({
+			title: {text: 'There are no rides yet.'},
+			template: 'notice'
+		});
+	}
+
+	$.listView.sections[0].items = templates;
+}
+
+function onRentalStartHandler(block) {
+	const blocks = Ti.App.Properties.getObject('rentalStartBlocks', []);
+
+	blocks.push(block);
+
+	Ti.App.Properties.setObject('rentalStartBlocks', blocks);
+	reloadList();
+}
+
+
+// Alloy.Globals.socket.on('scooter.rental.finish', (block) => {
+// 	console.log(block);
+// });
+
+Alloy.Globals.socket.on('scooter.rental.start', onRentalStartHandler);
+reloadList();
+
+function onCloseHandler() {
+	Alloy.Globals.socket.off('scooter.rental.start', onRentalStartHandler);
+	// Alloy.Globals.socket.off('scooter.rental.finish', onRentalFinishHandler);
 }
