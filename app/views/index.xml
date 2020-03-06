@@ -1,6 +1,6 @@
 <Alloy>
     <TabGroup id="tabGroup">
-        <Tab title="Add ride" icon="add_white_48.png">
+        <Tab title="Rides" icon="add_white_48.png">
             <Require src="rides"/>
         </Tab>
         <Tab title="Events" icon="timeline_white_48.png">
