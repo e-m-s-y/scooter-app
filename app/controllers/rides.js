@@ -20,7 +20,9 @@ function onItemClickHandler(e) {
 	const listItem = $.listView.sections[e.sectionIndex].getItemAt(e.itemIndex);
 
 	if (listItem.payload) {
-		alert(listItem.payload);
+		Ti.UI.createNavigationWindow({
+			window: Alloy.createController('ride/details', listItem.payload).getView()
+		}).open({modal: true});
 	}
 }
 
@@ -34,7 +36,7 @@ function reloadList() {
 		templates.push({
 			title: {text: 'ID ' + block.blockId},
 			subTitle: {text: 'asset ' + JSON.stringify(block.asset)},
-			payload: block.asset,
+			payload: block,
 			template: 'doubleWithClick'
 		});
 	}
