@@ -1,5 +1,5 @@
 <Alloy>
-    <Window id="window" title="Settings">
+    <Window id="window" title="Settings" onFocus="reloadList">
         <ListView platform="android" id="listView">
             <Templates>
                 <Require src="listview/templates/section"/>
