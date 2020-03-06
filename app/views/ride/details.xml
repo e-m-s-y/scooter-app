@@ -4,5 +4,6 @@
         <Label id="sessionId" class="t8 l8 r8" text="SessionId: "/>
         <Label id="rate" class="t8 l8 r8" text="Rate: "/>
         <Label id="gps" class="t8 l8 r8" text="GPS: "/>
+        <Button title="Finish ride"/>
     </Window>
 </Alloy>
