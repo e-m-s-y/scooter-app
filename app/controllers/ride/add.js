@@ -25,12 +25,10 @@ Barcode.addEventListener('success', function(e) {
 		format: e.format
 	};
 
-	console.log(contents);
-
 	Ti.App.fireEvent('createRentalStartTx', {
 		sessionId: contents.result.hash,
-		nonce: Ti.App.Properties.getObject('session', sessionTemplate).nonce,
-		passphrase: passphrase,
+		nonce: Ti.App.Properties.getObject('nonce', 0),
+		passphrase: Ti.App.Properties.getObject('passphrase', ''),
 		recipientId: contents.result.recipientId,
 		amount: '1',
 		rate: contents.result.rate,
@@ -157,10 +155,6 @@ function onStartCameraScanHandler() {
 	});
 }
 
-const sessionTemplate = {
-	nonce: 0
-};
-const passphrase = 'jar width fee ostrich fantasy vehicle thank doctor teach family bottom trap';
 const recipient = 'TGGUtM6KPdWn7LSpNcWj1y5ngGa8xJqxHf';
 const sessionId = '0b6614343a95b6dd957b9d118250c589dfd221fe4769d6c83caa93ca8e946138';
 
@@ -173,12 +167,9 @@ function broadcastTxHandler(event) {
 		const response = JSON.parse(this.responseText);
 
 		if(response.data.accept.length) {
-			const session = Ti.App.Properties.getObject('session', sessionTemplate);
+			let nonce = Ti.App.Properties.getObject('nonce');
 
-			session.nonce = ++session.nonce;
-
-			Ti.App.Properties.setObject('session', session);
-
+			Ti.App.Properties.setObject('nonce', ++nonce);
 			alert('Rental start tx has been sent to Radians, check event tab for results.')
 		} else {
 			console.log(this.responseText);
@@ -205,8 +196,8 @@ Ti.App.addEventListener('rentalFinishTxCreated', broadcastTxHandler);
 function onSendScooterRegistrationTxHandler() {
 	Ti.App.fireEvent('createScooterRegistrationTx', {
 		id: '0123456789',
-		nonce: Ti.App.Properties.getObject('session', sessionTemplate).nonce,
-		passphrase: passphrase,
+		nonce: Ti.App.Properties.getObject('nonce', 0),
+		passphrase: Ti.App.Properties.getObject('passphrase', ''),
 		recipient: recipient,
 		vendorField: 'Hello from the app!',
 		amount: 33
@@ -216,8 +207,8 @@ function onSendScooterRegistrationTxHandler() {
 function onSendRentalStartTxHandler() {
 	Ti.App.fireEvent('createRentalStartTx', {
 		sessionId: sessionId,
-		nonce: Ti.App.Properties.getObject('session', sessionTemplate).nonce,
-		passphrase: passphrase,
+		nonce: Ti.App.Properties.getObject('nonce', 0),
+		passphrase: Ti.App.Properties.getObject('passphrase', ''),
 		recipientId: recipient,
 		vendorField: 'Hello from the app!',
 		amount: 55,
@@ -233,8 +224,8 @@ function onSendRentalStartTxHandler() {
 function onSendRentalFinishTxHandler() {
 	Ti.App.fireEvent('createRentalFinishTx', {
 		sessionId: sessionId,
-		nonce: Ti.App.Properties.getObject('session', sessionTemplate).nonce,
-		passphrase: passphrase,
+		nonce: Ti.App.Properties.getObject('nonce', 0),
+		passphrase: Ti.App.Properties.getObject('passphrase', ''),
 		recipientId: recipient,
 		vendorField: 'Hello from the app!',
 		amount: 333,
@@ -253,8 +244,8 @@ function onSendRentalFinishTxHandler() {
 
 function onSendTransferTxHandler() {
 	Ti.App.fireEvent('createTransferTx', {
-		nonce: Ti.App.Properties.getObject('session', sessionTemplate).nonce,
-		passphrase: passphrase,
+		nonce: Ti.App.Properties.getObject('nonce', 0),
+		passphrase: Ti.App.Properties.getObject('passphrase', ''),
 		recipient: 'TEBFiv6emzoY6i4znYGrFeWiKyTRimhNWe',
 		vendorField: 'Hello from the app!',
 		amount: 11
@@ -278,9 +269,3 @@ function uriToObject(uri) {
 
 	return object;
 }
-
-
-console.log('nonce ' + Ti.App.Properties.getObject('session', sessionTemplate).nonce);
-const uri = `rad:${recipient}?hash=${sessionId}&rate=370000000&lat=-180.222222&lon=1.111111`;
-console.log(uri);
-console.log(uriToObject(uri));

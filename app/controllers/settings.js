@@ -58,7 +58,7 @@ function loadWalletSection() {
 		payload: {callback: promptPassphrase}
 	}, {
 		title: {text: 'Nonce'},
-		subTitle: {text: Ti.App.Properties.getObject('nonce', '')},
+		subTitle: {text: Ti.App.Properties.getObject('nonce', 0)},
 		template: 'doubleWithClick',
 		payload: {callback: promptNonce}
 	}];
