@@ -81,4 +81,3 @@ Ti.App.addEventListener('transferTxCreated', broadcastTxHandler);
 Ti.App.addEventListener('scooterRegistrationTxCreated', broadcastTxHandler);
 Ti.App.addEventListener('rentalStartTxCreated', broadcastTxHandler);
 Ti.App.addEventListener('rentalFinishTxCreated', broadcastTxHandler);
-

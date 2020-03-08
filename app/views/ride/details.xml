@@ -5,6 +5,7 @@
         <Label id="rate" class="t8 l8 r8" text="Rate: "/>
         <Label id="gps" class="t8 l8 r8" text="GPS: "/>
         <Label id="duration" class="t8 l8 r8" text="Duration: "/>
+        <Label id="costs" class="t8 l8 r8" text="Costs: "/>
         <Button title="Finish ride"/>
     </Window>
 </Alloy>
