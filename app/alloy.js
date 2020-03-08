@@ -15,14 +15,14 @@ Alloy.Globals.socket = io.connect('https://radians.nl', {
 });
 
 Alloy.Globals.socket.on('connect', () => {
-	console.log('connected!');
+	console.log('Connected to Radians socket!');
 });
 
 Alloy.Globals.socket.on('error', (error) => {
 	console.error(error);
 });
-
+llo
 Alloy.Globals.socket.on('disconnect', (reason) => {
 	console.warn(reason);
-	console.warn('disconnected');
+	console.warn('Radians socket disconnected');
 });
