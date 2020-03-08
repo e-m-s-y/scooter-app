@@ -27,16 +27,14 @@ function onItemClickHandler(e) {
 }
 
 function reloadList() {
-	const rentalStartBlocks = Ti.App.Properties.getObject('rentalStartBlocks', []);
+	const rides = Ti.App.Properties.getObject('rides', []);
 	const templates = [];
 
-	for(let block of rentalStartBlocks) {
-		console.log(block);
-
+	for(let ride of rides) {
 		templates.push({
-			title: {text: 'ID ' + block.blockId},
-			subTitle: {text: 'asset ' + JSON.stringify(block.asset)},
-			payload: block,
+			title: {text: 'ID ' + ride.rentalStartTx.blockId},
+			subTitle: {text: 'asset ' + JSON.stringify(ride.rentalStartTx.asset)},
+			payload: ride,
 			template: 'doubleWithClick'
 		});
 	}
@@ -51,12 +49,14 @@ function reloadList() {
 	$.listView.sections[0].items = templates;
 }
 
-function onRentalStartHandler(block) {
-	const blocks = Ti.App.Properties.getObject('rentalStartBlocks', []);
+function onRentalStartHandler(tx) {
+	const rides = Ti.App.Properties.getObject('rides', []);
 
-	blocks.push(block);
+	rides.push({
+		rentalStartTx: tx
+	});
 
-	Ti.App.Properties.setObject('rentalStartBlocks', blocks);
+	Ti.App.Properties.setObject('rides', rides);
 	reloadList();
 }
 

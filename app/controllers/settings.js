@@ -72,7 +72,7 @@ function clearWalletData() {
 }
 
 function clearRidesData() {
-	Ti.App.Properties.removeProperty('rentalStartBlocks');
+	Ti.App.Properties.removeProperty('rides');
 	alert('The rides cache has been cleared.');
 }
 
