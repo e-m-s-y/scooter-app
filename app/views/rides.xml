@@ -1,5 +1,5 @@
 <Alloy>
-    <Window id="window" title="All rides" layout="vertical" onFocus="reloadList">
+    <Window id="window" title="All rides" layout="vertical" onFocus="reloadList" onClose="onCloseHandler">
         <RightNavButtons>
             <Button image="add_white_48.png" onClick="onAddButtonClickHandler"/>
         </RightNavButtons>
