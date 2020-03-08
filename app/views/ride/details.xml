@@ -1,9 +1,10 @@
 <Alloy>
-    <Window id="window" title="Ride details" layout="vertical">
+    <Window id="window" title="Ride details" layout="vertical" onClose="onCloseHandler">
         <Label id="recipient" class="t8 l8 r8" text="Recipient: "/>
         <Label id="sessionId" class="t8 l8 r8" text="SessionId: "/>
         <Label id="rate" class="t8 l8 r8" text="Rate: "/>
         <Label id="gps" class="t8 l8 r8" text="GPS: "/>
+        <Label id="duration" class="t8 l8 r8" text="Duration: "/>
         <Button title="Finish ride"/>
     </Window>
 </Alloy>
