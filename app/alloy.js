@@ -21,7 +21,7 @@ Alloy.Globals.socket.on('connect', () => {
 Alloy.Globals.socket.on('error', (error) => {
 	console.error(error);
 });
-llo
+
 Alloy.Globals.socket.on('disconnect', (reason) => {
 	console.warn(reason);
 	console.warn('Radians socket disconnected');
