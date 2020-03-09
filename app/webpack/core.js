@@ -165,6 +165,8 @@ createRentalFinishTx = function(data) {
 		log('curl --request POST --url https://radians.nl/api/transactions ' +
 			'--header "content-type:application/json" --data ' + JSON.stringify(JSON.stringify({transactions: [struct]})));
 	}
+
+	RentalFinishBuilder.reset();
 };
 
 createBigNumber = function(data) {

@@ -27,6 +27,7 @@ function onCloseHandler() {
 
 function finishRideHandler() {
 	clearInterval(interval);
+	updateValues();
 
 	Ti.App.fireEvent('createRentalFinishTx', {
 		sessionId: $.args.rentalStartTx.asset.sessionId,
