@@ -6,6 +6,6 @@
         <Label id="duration" class="t8 l8 r8" text="Duration: "/>
         <Label id="costs" class="t8 l8 r8" text="Costs: "/>
         <Label id="gps" class="t8 l8 r8" text="GPS: "/>
-        <Button title="Finish ride"/>
+        <Button title="Finish ride" onClick="finishRideHandler"/>
     </Window>
 </Alloy>

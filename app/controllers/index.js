@@ -52,12 +52,12 @@ function broadcastTxHandler(event) {
 	xhr.onload = function() {
 		const response = JSON.parse(this.responseText);
 
-		if(response.data.accept.length) {
+		if(response && response.data && response.data.accept.length) {
 			let nonce = Ti.App.Properties.getObject('nonce');
 
 			Ti.App.Properties.setObject('nonce', ++nonce);
 			alert('Transaction has been accepted by Radians. It may take up to 8 seconds for the transaction to be forged.')
-		} else if(response.errors && response.errors[event.struct.id]) {
+		} else if(response && response.errors && response.errors[event.struct.id]) {
 			console.log(this.responseText);
 			alert(response.errors[event.struct.id][0].message);
 		} else {

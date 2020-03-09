@@ -60,15 +60,29 @@ function onRentalStartHandler(tx) {
 	reloadList();
 }
 
+function onRentalFinishHandler(tx) {
+	const rides = Ti.App.Properties.getObject('rides', []);
 
-// Alloy.Globals.socket.on('scooter.rental.finish', (block) => {
-// 	console.log(block);
-// });
+	for (const i in rides) {
+		if(rides.hasOwnProperty(i)) {
+			let ride = rides[i];
 
-Alloy.Globals.socket.on('scooter.rental.start', onRentalStartHandler);
-reloadList();
+			if(ride.rentalStartTx.asset.sessionId === tx.asset.sessionId) {
+				ride.rentalFinishTx = tx;
+				rides[i] = ride;
+			}
+		}
+	}
+
+	Ti.App.Properties.setObject('rides', rides);
+	reloadList();
+}
 
 function onCloseHandler() {
-	Alloy.Globals.socket.off('scooter.rental.start', onRentalStartHandler);
-	// Alloy.Globals.socket.off('scooter.rental.finish', onRentalFinishHandler);
+	Alloy.Globals.socket.off('scooter.rental.start', onRentalStartHandler)
+		.off('scooter.rental.finish', onRentalFinishHandler);
 }
+
+reloadList();
+Alloy.Globals.socket.on('scooter.rental.start', onRentalStartHandler)
+	.on('scooter.rental.finish', onRentalFinishHandler);
