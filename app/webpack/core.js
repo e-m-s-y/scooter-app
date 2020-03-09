@@ -47,6 +47,7 @@ window.onload = function() {
 		Ti.App.addEventListener('createScooterRegistrationTx', createScooterRegistrationTx);
 		Ti.App.addEventListener('createRentalStartTx', createRentalStartTx);
 		Ti.App.addEventListener('createRentalFinishTx', createRentalFinishTx);
+		Ti.App.addEventListener('createBigNumber', createBigNumber);
 	}
 };
 
@@ -164,4 +165,17 @@ createRentalFinishTx = function(data) {
 		log('curl --request POST --url https://radians.nl/api/transactions ' +
 			'--header "content-type:application/json" --data ' + JSON.stringify(JSON.stringify({transactions: [struct]})));
 	}
+};
+
+createBigNumber = function(data) {
+	const bigNumber = ArkCrypto.Utils.BigNumber.make(data.value);
+	const ark = Number(bigNumber.value / 1e8);
+
+	Ti.App.fireEvent('bigNumberCreated', {
+		arktoshi: bigNumber.toString(),
+		ark: ark.toFixed(8),
+		normalized: ark.toLocaleString(undefined, {
+			maximumFractionDigits: 2,
+		}),
+	});
 };
