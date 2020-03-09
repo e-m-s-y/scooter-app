@@ -1,7 +1,0 @@
-<Alloy>
-    <ItemTemplate name="notice" class="hFill">
-        <View>
-            <Label bindId="title" class="touchDisabled t16 taCenter"/>
-        </View>
-    </ItemTemplate>
-</Alloy>

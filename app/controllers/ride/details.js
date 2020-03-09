@@ -1,22 +1,23 @@
 const moment = require('alloy/moment');
+let interval;
 const arkRatePerSecond = Number($.args.rentalStartTx.asset.rate / 1e8).toFixed(8);
 const start = moment($.args.rentalStartTx.asset.gps.human);
-let duration = moment.utc(moment().diff(start));
-let costs = (duration / 1000) * Number($.args.rentalStartTx.asset.rate);
-
-console.log($.args);
+let end = $.args.rentalFinishTx ? moment($.args.rentalFinishTx.asset.gps[1].human) : moment();
+let secondsElapsed = Math.round(moment.duration(end.diff(start)).asSeconds());
+let duration = moment.utc(end.diff(start));
+let costs = secondsElapsed * Number($.args.rentalStartTx.asset.rate);
 
 function updateValues() {
-	const secondsElapsed = Math.round(moment.duration(moment().diff(start)).asSeconds());
+	end = $.args.rentalFinishTx ? end : moment();
+	secondsElapsed = Math.round(moment.duration(end.diff(start)).asSeconds());
 	costs = secondsElapsed * Number($.args.rentalStartTx.asset.rate);
-	duration = moment.utc(moment().diff(start));
-
+	duration = moment.utc(end.diff(start));
 	const normalizedArk = (secondsElapsed * arkRatePerSecond).toLocaleString(undefined, {
 		maximumFractionDigits: 8,
 	});
 
 	$.duration.text = 'Duration: ' + duration.format('HH:mm:ss');
-	$.costs.text = 'Costs: ' + normalizedArk + ' R';
+	$.costs.text = 'Costs: R ' + normalizedArk;
 }
 
 function onCloseHandler() {
@@ -51,15 +52,39 @@ function getRandomGpsCoordinate() {
 }
 
 function onRentalFinishHandler(tx) {
-	console.log('TODO');
+	$.args.rentalFinishTx = tx;
+	setValues();
 }
 
-const interval = setInterval(updateValues, 1000);
+function setValues() {
+	$.recipient.text = 'Recipient: ' + $.args.rentalStartTx.recipientId;
+	$.sessionId.text = 'Session ID: ' + $.args.rentalStartTx.asset.sessionId;
+	$.start.text = 'Started at: ' + start.format('YYYY-MM-DD HH:mm:ss');
+	$.end.text = 'Finished at: ';
+	$.gpsStart.text = 'GPS start: ' + JSON.stringify($.args.rentalStartTx.asset.gps);
+	$.gpsEnd.text = 'GPS finish: ';
+	$.rate.text = 'Rate per second: R ' +  + arkRatePerSecond + '\nRate per minute R ' + Number(arkRatePerSecond * 60).toFixed(8) + '\nRate per hour R ' + Number(arkRatePerSecond * 3600).toFixed(8);
+	$.openRentalStartTx.url = 'https://radians.nl/#/transaction/' + $.args.rentalStartTx.id;
 
-$.recipient.text = $.recipient.text + $.args.rentalStartTx.recipientId;
-$.sessionId.text = $.sessionId.text + $.args.rentalStartTx.asset.sessionId;
-$.gps.text = $.gps.text + JSON.stringify($.args.rentalStartTx.asset.gps);
-$.rate.text = $.rate.text + arkRatePerSecond + ' R\nRate per minute ' + Number(arkRatePerSecond * 60).toFixed(8) + ' R';
+	if( ! $.args.rentalFinishTx) {
+		$.finishRideButton.enabled = true;
+	} else {
+		$.finishRideButton.enabled = false;
+		$.end.text = 'Finished at: ' + end.format('YYYY-MM-DD HH:mm:ss');
+		$.gpsEnd.text = 'GPS finish: ' + JSON.stringify($.args.rentalFinishTx.asset.gps[1]);
+		$.openRentalFinishTx.url = 'https://radians.nl/#/transaction/' + $.args.rentalFinishTx.id;
+		$.openRentalFinishTx.enabled = true;
+	}
+}
+
+function onOpenExplorerHandler(event) {
+	Ti.Platform.openURL(event.source.url);
+}
+
+if( ! $.args.rentalFinishTx) {
+	interval = setInterval(updateValues, 1000);
+}
 
 Alloy.Globals.socket.on('scooter.rental.finish', onRentalFinishHandler);
+setValues();
 updateValues();

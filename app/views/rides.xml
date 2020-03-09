@@ -4,12 +4,12 @@
             <Button image="add_white_48.png" onClick="onAddButtonClickHandler"/>
         </RightNavButtons>
         <WebView id="webView" url="/core.html" onLoad="onWebViewLoadedHandler"/>
-        <ListView id="listView" onItemclick="onItemClickHandler">
+        <ListView id="listView" onItemclick="onItemClickHandler" style="Ti.UI.iOS.ListViewStyle.GROUPED">
             <Templates>
                 <Require src="listview/templates/clickable/double"/>
-                <Require src="listview/templates/notice"/>
             </Templates>
-            <ListSection/>
+            <ListSection headerTitle="Active rides"/>
+            <ListSection headerTitle="Finished rides"/>
         </ListView>
     </Window>
 </Alloy>

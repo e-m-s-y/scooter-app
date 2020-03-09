@@ -1,3 +1,4 @@
+const moment = require('alloy/moment');
 let isReady = false;
 
 function onWebViewLoadedHandler() {
@@ -19,7 +20,7 @@ function onAddButtonClickHandler() {
 function onItemClickHandler(e) {
 	const listItem = $.listView.sections[e.sectionIndex].getItemAt(e.itemIndex);
 
-	if (listItem.payload) {
+	if(listItem.payload) {
 		Ti.UI.createNavigationWindow({
 			window: Alloy.createController('ride/details', listItem.payload).getView()
 		}).open({modal: true});
@@ -28,31 +29,38 @@ function onItemClickHandler(e) {
 
 function reloadList() {
 	const rides = Ti.App.Properties.getObject('rides', []);
-	const templates = [];
+	const activeRideTemplates = [];
+	const finishedRideTemplates = [];
 
 	for(let ride of rides) {
-		templates.push({
-			title: {text: 'ID ' + ride.rentalStartTx.blockId},
-			subTitle: {text: 'asset ' + JSON.stringify(ride.rentalStartTx.asset)},
+		const start = moment(ride.rentalStartTx.asset.gps.human);
+		const end = ride.rentalFinishTx ? moment(ride.rentalFinishTx.asset.gps[1].human) : moment();
+		const secondsElapsed = Math.round(moment.duration(end.diff(start)).asSeconds());
+		const arkRatePerSecond = Number(ride.rentalStartTx.asset.rate / 1e8).toFixed(8);
+		const normalizedArk = (secondsElapsed * arkRatePerSecond).toLocaleString(undefined, {
+			maximumFractionDigits: 8
+		});
+		let subTitle = 'Rental duration: ' + moment.utc(end.diff(start)).format('HH:mm:ss');
+		subTitle += ' - costs: R ' + normalizedArk;
+
+		const template = {
+			title: {text: 'Session ID: ' + ride.rentalStartTx.asset.sessionId},
+			subTitle: {text: subTitle},
 			payload: ride,
 			template: 'doubleWithClick'
-		});
+		};
+
+		ride.rentalFinishTx ? finishedRideTemplates.push(template) : activeRideTemplates.push(template);
 	}
 
-	if( ! templates.length) {
-		templates.push({
-			title: {text: 'There are no rides yet.'},
-			template: 'notice'
-		});
-	}
-
-	$.listView.sections[0].items = templates;
+	$.listView.sections[0].items = activeRideTemplates;
+	$.listView.sections[1].items = finishedRideTemplates;
 }
 
 function onRentalStartHandler(tx) {
 	const rides = Ti.App.Properties.getObject('rides', []);
 
-	rides.push({
+	rides.unshift({
 		rentalStartTx: tx
 	});
 
@@ -63,13 +71,15 @@ function onRentalStartHandler(tx) {
 function onRentalFinishHandler(tx) {
 	const rides = Ti.App.Properties.getObject('rides', []);
 
-	for (const i in rides) {
+	for(const i in rides) {
 		if(rides.hasOwnProperty(i)) {
 			let ride = rides[i];
 
 			if(ride.rentalStartTx.asset.sessionId === tx.asset.sessionId) {
 				ride.rentalFinishTx = tx;
 				rides[i] = ride;
+
+				break;
 			}
 		}
 	}
@@ -81,8 +91,11 @@ function onRentalFinishHandler(tx) {
 function onCloseHandler() {
 	Alloy.Globals.socket.off('scooter.rental.start', onRentalStartHandler)
 		.off('scooter.rental.finish', onRentalFinishHandler);
+	clearInterval(interval);
 }
 
 reloadList();
+
+const interval = setInterval(reloadList, 1000);
 Alloy.Globals.socket.on('scooter.rental.start', onRentalStartHandler)
 	.on('scooter.rental.finish', onRentalFinishHandler);
