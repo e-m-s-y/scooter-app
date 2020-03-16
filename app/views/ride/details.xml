@@ -6,6 +6,8 @@
         <Label id="start" class="t8 l8 r8"/>
         <Label id="end" class="t8 l8 r8"/>
         <Label id="duration" class="t8 l8 r8"/>
+        <Label id="credit" class="t8 l8 r8"/>
+        <Label id="difference" class="t8 l8 r8"/>
         <Label id="costs" class="t8 l8 r8"/>
         <Label id="gpsStart" class="t8 l8 r8"/>
         <Label id="gpsEnd" class="t8 l8 r8"/>
