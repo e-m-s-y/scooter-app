@@ -19,6 +19,8 @@ function onContentsScannedHandler(event) {
 		format: event.format
 	};
 
+	// TODO toon window met slider voor duration + prijs
+
 	Ti.App.fireEvent('createRentalStartTx', {
 		sessionId: contents.result.hash,
 		nonce: Ti.App.Properties.getObject('nonce', 0),
