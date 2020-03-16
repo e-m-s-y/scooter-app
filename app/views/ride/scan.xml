@@ -1,5 +1,5 @@
 <Alloy>
-    <Window id="window" title="Add a ride" layout="vertical" onClose="onCloseHandler">
+    <Window id="window" title="Scan scooter" layout="vertical" onClose="onCloseHandler">
         <Button class="t16 fs18" title="Scan from camera" onClick="onStartCameraScanHandler"/>
         <Label class="t4" text="or"/>
         <Button class="t4 fs18" title="Scan from image" onClick="onStartGalleryScanHandler"/>

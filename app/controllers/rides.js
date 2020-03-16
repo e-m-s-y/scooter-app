@@ -13,7 +13,7 @@ function onAddButtonClickHandler() {
 	}
 
 	Ti.UI.createNavigationWindow({
-		window: Alloy.createController('ride/new').getView()
+		window: Alloy.createController('ride/scan').getView()
 	}).open({modal: true});
 }
 
