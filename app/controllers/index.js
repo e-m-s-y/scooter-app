@@ -45,7 +45,7 @@ function promptNonce() {
 }
 
 function broadcastTxHandler(event) {
-	console.log('Creating XHR request...');
+	console.log('Creating XHR...');
 
 	const xhr = Ti.Network.createHTTPClient();
 
@@ -73,7 +73,7 @@ function broadcastTxHandler(event) {
 		transactions: [event.struct]
 	});
 
-	console.log('Sending XHR request with data %O', data);
+	console.log('Sending XHR with data %O', data);
 	xhr.send(data);
 }
 
