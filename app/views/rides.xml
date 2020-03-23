@@ -1,5 +1,19 @@
 <Alloy>
-    <Window id="window" title="All rides" layout="vertical" onFocus="reloadList" onClose="onCloseHandler">
+    <Window platform="android" id="window" title="All rides" layout="vertical" onFocus="reloadList" onClose="onCloseHandler">
+        <Menu>
+            <MenuItem title="New ride" icon="add_white_48.png" showAsAction="Ti.Android.SHOW_AS_ACTION_ALWAYS"
+                      onClick="onAddButtonClickHandler"/>
+        </Menu>
+        <WebView id="webView" url="/core.html" onLoad="onWebViewLoadedHandler"/>
+        <ListView id="listView" onItemclick="onItemClickHandler">
+            <Templates>
+                <Require src="listview/templates/clickable/double"/>
+            </Templates>
+            <ListSection headerTitle="Active rides"/>
+            <ListSection headerTitle="Finished rides"/>
+        </ListView>
+    </Window>
+    <Window platform="ios" id="window" title="All rides" layout="vertical" onFocus="reloadList" onClose="onCloseHandler">
         <RightNavButtons>
             <Button image="add_white_48.png" onClick="onAddButtonClickHandler"/>
         </RightNavButtons>

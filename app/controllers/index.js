@@ -1,47 +1,27 @@
-$.tabGroup.open();
-
-if( ! Ti.App.Properties.getObject('passphrase', false)) {
-	const dialog = Ti.UI.createAlertDialog({
-		title: 'Please set your passphrase of your wallet. You can change this value in the settings tab.',
-		style: Ti.UI.iOS.AlertDialogStyle.PLAIN_TEXT_INPUT,
-		buttonNames: ['OK']
-	});
-
-	dialog.addEventListener('click', function(event) {
-		if(event.text.length) {
-			Ti.App.Properties.setObject('passphrase', event.text);
-		}
-
-		promptNonce();
-	});
-
-	dialog.show();
-} else {
-	promptNonce();
+function onOpenHandler() {
+	if( ! Ti.App.Properties.getObject('passphrase', false)) {
+		$.promptPassphrase.show();
+	} else {
+		$.promptNonce.show();
+	}
 }
 
-function promptNonce() {
-	if(Ti.App.Properties.getObject('nonce', -1) === -1) {
-		const dialog = Ti.UI.createAlertDialog({
-			title: 'Set your nonce. You can also change this value in the settings tab.',
-			style: Ti.UI.iOS.AlertDialogStyle.PLAIN_TEXT_INPUT,
-			buttonNames: ['OK']
-		});
+function onPromptedPassphraseHandler(event) {
+	const passphrase = OS_IOS && event.text.length ? event.text : $.passphraseInput.value;
 
-		dialog.addEventListener('click', function(e) {
-			if(e.text.length) {
-				const nonce = parseInt(e.text);
+	Ti.App.Properties.setObject('passphrase', passphrase);
+	$.promptNonce.show();
+}
 
-				if( ! Number.isInteger(nonce)) {
-					return alert('Invalid nonce, please try again.');
-				}
+function onPromptedNonceHandler(event) {
+	let nonce = OS_IOS && event.text.length ? event.text : $.nonceInput.value;
+	nonce = parseInt(nonce);
 
-				Ti.App.Properties.setObject('nonce', nonce);
-			}
-		});
-
-		dialog.show();
+	if( ! Number.isInteger(nonce)) {
+		return alert('Invalid nonce, please try again.');
 	}
+
+	Ti.App.Properties.setObject('nonce', nonce);
 }
 
 function broadcastTxHandler(event) {
@@ -81,3 +61,20 @@ Ti.App.addEventListener('transferTxCreated', broadcastTxHandler);
 Ti.App.addEventListener('scooterRegistrationTxCreated', broadcastTxHandler);
 Ti.App.addEventListener('rentalStartTxCreated', broadcastTxHandler);
 Ti.App.addEventListener('rentalFinishTxCreated', broadcastTxHandler);
+
+if(OS_ANDROID) {
+	$.tabGroup.addEventListener('open', function() {
+		$.tabGroup.activity.onCreateOptionsMenu = function(e) {
+			if($.tabGroup.activeTab && $.tabGroup.activeTab.window && $.tabGroup.activeTab.window.activity.onCreateOptionsMenu) {
+				$.tabGroup.activeTab.window.activity.onCreateOptionsMenu(e);
+			}
+		};
+	});
+
+	$.tabGroup.addEventListener('focus', function() {
+		$.tabGroup.activity.invalidateOptionsMenu();
+		$.tabGroup.title = $.tabGroup.activeTab.window.title;
+	});
+}
+
+$.tabGroup.open();

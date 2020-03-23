@@ -1,5 +1,5 @@
 <Alloy>
-    <TabGroup id="tabGroup">
+    <TabGroup id="tabGroup" onOpen="onOpenHandler">
         <Tab title="Rides" icon="list_white_48.png">
             <Require src="rides"/>
         </Tab>
@@ -10,4 +10,22 @@
             <Require src="settings"/>
         </Tab>
     </TabGroup>
+    <AlertDialog id="promptPassphrase" onClick="onPromptedPassphraseHandler" title="Set passphrase"
+                 message="Please enter the passphrase of your wallet. You can change this value in the settings tab.">
+        <View platform="android">
+            <TextField id="passphraseInput" class="l20 r20 tcBlack" hintText="Enter passphrase"/>
+        </View>
+        <ButtonNames>
+            <ButtonName>OK</ButtonName>
+        </ButtonNames>
+    </AlertDialog>
+    <AlertDialog id="promptNonce" onClick="onPromptedNonceHandler" title="Set nonce"
+                 message="Set your nonce. You can also change this value in the settings tab.">
+        <View platform="android">
+            <TextField id="nonceInput" class="l20 r20 tcBlack" hintText="Enter nonce"/>
+        </View>
+        <ButtonNames>
+            <ButtonName>OK</ButtonName>
+        </ButtonNames>
+    </AlertDialog>
 </Alloy>
