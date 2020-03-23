@@ -494,4 +494,8 @@
     width: Ti.UI.FILL,
 }
 
+'.inputDialog[platform=ios]': {
+    style: Ti.UI.iOS.AlertDialogStyle.PLAIN_TEXT_INPUT
+}
+
 

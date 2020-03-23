@@ -102,7 +102,9 @@ function onCloseHandler() {
 	clearInterval(interval);
 }
 
-$.activityIndicator.show();
+if(OS_ANDROID) {
+	$.activityIndicator.show();
+}
 
 reloadList();
 

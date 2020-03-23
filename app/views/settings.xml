@@ -19,7 +19,7 @@
             <ListSection headerTitle="General"/>
         </ListView>
     </Window>
-    <AlertDialog id="promptPassphrase" onClick="onPromptedPassphraseHandler" title="Set passphrase"
+    <AlertDialog id="promptPassphrase" class="inputDialog" onClick="onPromptedPassphraseHandler" title="Set passphrase"
                  message="Please enter the passphrase of your wallet.">
         <View platform="android">
             <TextField id="passphraseInput" class="l20 r20 tcBlack" hintText="Enter passphrase"/>
@@ -28,7 +28,7 @@
             <ButtonName>OK</ButtonName>
         </ButtonNames>
     </AlertDialog>
-    <AlertDialog id="promptNonce" onClick="onPromptedNonceHandler" title="Set nonce"
+    <AlertDialog id="promptNonce" class="inputDialog" onClick="onPromptedNonceHandler" title="Set nonce"
                  message="Set your nonce.">
         <View platform="android">
             <TextField id="nonceInput" class="l20 r20 tcBlack" hintText="Enter nonce"/>

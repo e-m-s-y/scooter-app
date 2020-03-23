@@ -5,7 +5,7 @@ function onOpenHandler() {
 }
 
 function onPromptedPassphraseHandler(event) {
-	const passphrase = OS_IOS && event.text.length ? event.text : $.passphraseInput.value;
+	const passphrase = OS_IOS ? event.text : $.passphraseInput.value;
 
 	if(passphrase.length) {
 		Ti.App.Properties.setObject('passphrase', passphrase);
@@ -17,7 +17,7 @@ function onPromptedPassphraseHandler(event) {
 }
 
 function onPromptedNonceHandler(event) {
-	let nonce = OS_IOS && event.text.length ? event.text : $.nonceInput.value;
+	let nonce = OS_IOS ? event.text : $.nonceInput.value;
 
 	if( ! nonce.length) {
 		return;

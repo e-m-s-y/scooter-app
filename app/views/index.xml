@@ -10,7 +10,7 @@
             <Require src="settings"/>
         </Tab>
     </TabGroup>
-    <AlertDialog id="promptPassphrase" onClick="onPromptedPassphraseHandler" title="Set passphrase"
+    <AlertDialog id="promptPassphrase" class="inputDialog" onClick="onPromptedPassphraseHandler" title="Set passphrase"
                  message="Please enter the passphrase of your wallet. You can change this value in the settings tab.">
         <View platform="android">
             <TextField id="passphraseInput" class="l20 r20 tcBlack" hintText="Enter passphrase"/>
@@ -19,7 +19,7 @@
             <ButtonName>OK</ButtonName>
         </ButtonNames>
     </AlertDialog>
-    <AlertDialog id="promptNonce" onClick="onPromptedNonceHandler" title="Set nonce"
+    <AlertDialog id="promptNonce" class="inputDialog" onClick="onPromptedNonceHandler" title="Set nonce"
                  message="Set your nonce. You can also change this value in the settings tab.">
         <View platform="android">
             <TextField id="nonceInput" class="l20 r20 tcBlack" hintText="Enter nonce"/>
