@@ -1,52 +1,36 @@
-function promptPassphrase() {
-	if(OS_IOS) {
-		const dialog = Ti.UI.createAlertDialog({
-			title: 'Set new passphrase',
-			style: Ti.UI.iOS.AlertDialogStyle.PLAIN_TEXT_INPUT,
-			buttonNames: ['OK']
-		});
+function onPromptedPassphraseHandler(event) {
+	const passphrase = OS_IOS && event.text.length ? event.text : $.passphraseInput.value;
 
-		dialog.addEventListener('click', function(e) {
-			if( ! e.text.length) {
-				return;
-			}
+	if( ! passphrase.length) {
+		return;
+	}
 
-			Ti.App.Properties.setObject('passphrase', e.text);
-			reloadList();
-		});
+	Ti.App.Properties.setObject('passphrase', passphrase);
+	reloadList();
 
-		dialog.show();
-	} else {
-		// TODO show alertdialog with androidView https://wiki.appcelerator.org/display/guides2/AlertDialog
+	if(OS_ANDROID) {
+		$.passphraseInput.value = '';
 	}
 }
 
-function promptNonce() {
-	if(OS_IOS) {
-		const dialog = Ti.UI.createAlertDialog({
-			title: 'Set new nonce',
-			style: Ti.UI.iOS.AlertDialogStyle.PLAIN_TEXT_INPUT,
-			buttonNames: ['OK']
-		});
+function onPromptedNonceHandler(event) {
+	let nonce = OS_IOS && event.text.length ? event.text : $.nonceInput.value;
 
-		dialog.addEventListener('click', function(e) {
-			if( ! e.text.length) {
-				return;
-			}
+	if( ! nonce.length) {
+		return;
+	}
 
-			const nonce = parseInt(e.text);
+	nonce = parseInt(nonce);
 
-			if( ! Number.isInteger(nonce)) {
-				return alert('Invalid nonce, please try again.');
-			}
+	if( ! Number.isInteger(nonce)) {
+		return alert('Invalid nonce, please try again.');
+	}
 
-			Ti.App.Properties.setObject('nonce', nonce);
-			reloadList();
-		});
+	Ti.App.Properties.setObject('nonce', nonce);
+	reloadList();
 
-		dialog.show();
-	} else {
-		// TODO show alertdialog with androidView https://wiki.appcelerator.org/display/guides2/AlertDialog
+	if(OS_ANDROID) {
+		$.nonceInput.value = '';
 	}
 }
 
@@ -55,12 +39,20 @@ function loadWalletSection() {
 		title: {text: 'Passphrase'},
 		subTitle: {text: Ti.App.Properties.getObject('passphrase', '')},
 		template: 'doubleWithClick',
-		payload: {callback: promptPassphrase}
+		payload: {
+			callback: function() {
+				$.promptPassphrase.show();
+			}
+		}
 	}, {
 		title: {text: 'Nonce'},
 		subTitle: {text: Ti.App.Properties.getObject('nonce', 0)},
 		template: 'doubleWithClick',
-		payload: {callback: promptNonce}
+		payload: {
+			callback: function() {
+				$.promptNonce.show();
+			}
+		}
 	}];
 }
 

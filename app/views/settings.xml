@@ -1,11 +1,10 @@
 <Alloy>
     <Window id="window" title="Settings" onFocus="reloadList">
-        <ListView platform="android" id="listView">
+        <ListView platform="android" id="listView" onItemclick="onItemClickHandler">
             <Templates>
                 <Require src="listview/templates/section"/>
                 <Require src="listview/templates/double"/>
                 <Require src="listview/templates/clickable/double"/>
-                <Require src="listview/templates/separator"/>
             </Templates>
             <ListSection headerTitle="Wallet"/>
             <ListSection headerTitle="General"/>
@@ -20,4 +19,22 @@
             <ListSection headerTitle="General"/>
         </ListView>
     </Window>
+    <AlertDialog id="promptPassphrase" onClick="onPromptedPassphraseHandler" title="Set passphrase"
+                 message="Please enter the passphrase of your wallet.">
+        <View platform="android">
+            <TextField id="passphraseInput" class="l20 r20 tcBlack" hintText="Enter passphrase"/>
+        </View>
+        <ButtonNames>
+            <ButtonName>OK</ButtonName>
+        </ButtonNames>
+    </AlertDialog>
+    <AlertDialog id="promptNonce" onClick="onPromptedNonceHandler" title="Set nonce"
+                 message="Set your nonce.">
+        <View platform="android">
+            <TextField id="nonceInput" class="l20 r20 tcBlack" hintText="Enter nonce"/>
+        </View>
+        <ButtonNames>
+            <ButtonName>OK</ButtonName>
+        </ButtonNames>
+    </AlertDialog>
 </Alloy>

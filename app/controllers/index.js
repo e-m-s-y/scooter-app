@@ -1,20 +1,28 @@
 function onOpenHandler() {
 	if( ! Ti.App.Properties.getObject('passphrase', false)) {
 		$.promptPassphrase.show();
-	} else {
-		$.promptNonce.show();
 	}
 }
 
 function onPromptedPassphraseHandler(event) {
 	const passphrase = OS_IOS && event.text.length ? event.text : $.passphraseInput.value;
 
-	Ti.App.Properties.setObject('passphrase', passphrase);
-	$.promptNonce.show();
+	if(passphrase.length) {
+		Ti.App.Properties.setObject('passphrase', passphrase);
+	}
+
+	if(Ti.App.Properties.getObject('nonce', false) === false) {
+		$.promptNonce.show();
+	}
 }
 
 function onPromptedNonceHandler(event) {
 	let nonce = OS_IOS && event.text.length ? event.text : $.nonceInput.value;
+
+	if( ! nonce.length) {
+		return;
+	}
+
 	nonce = parseInt(nonce);
 
 	if( ! Number.isInteger(nonce)) {
