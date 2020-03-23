@@ -8,16 +8,16 @@ let secondsElapsed = Math.round(moment.duration(moment().diff(start)).asSeconds(
 let reachedMaxDuration = secondsElapsed >= maxDurationInSeconds;
 let secondsLeft = reachedMaxDuration ? 0 : maxDurationInSeconds - secondsElapsed;
 let duration = reachedMaxDuration ? moment.utc(end.diff(start)) : moment.utc(moment().diff(start));
-let costs = secondsElapsed * Number($.args.rentalStartTx.asset.rate);
+let costs = (reachedMaxDuration ? maxDurationInSeconds : secondsElapsed) * Number($.args.rentalStartTx.asset.rate);
 
 function updateValues() {
 	secondsElapsed = Math.round(moment.duration(moment().diff(start)).asSeconds());
 	reachedMaxDuration = secondsElapsed >= maxDurationInSeconds;
-	costs = secondsElapsed * Number($.args.rentalStartTx.asset.rate);
+	costs = (reachedMaxDuration ? maxDurationInSeconds : secondsElapsed) * Number($.args.rentalStartTx.asset.rate);
 	duration = reachedMaxDuration ? moment.utc(end.diff(start)) : moment.utc(moment().diff(start));
 	secondsLeft = reachedMaxDuration ? 0 : maxDurationInSeconds - secondsElapsed;
 
-	const normalizedArk = (secondsElapsed * arkRatePerSecond).toLocaleString(undefined, {
+	const normalizedArk = ((reachedMaxDuration ? maxDurationInSeconds : secondsElapsed) * arkRatePerSecond).toLocaleString(undefined, {
 		maximumFractionDigits: 8,
 	});
 
