@@ -10,8 +10,6 @@ Alloy.Globals.socket.on('scooter.rental.start', (block) => {
 	});
 
 	section.items = items;
-
-	console.log('Added scooter rental start tx');
 });
 
 Alloy.Globals.socket.on('scooter.rental.finish', (block) => {
@@ -26,8 +24,6 @@ Alloy.Globals.socket.on('scooter.rental.finish', (block) => {
 	});
 
 	section.items = items;
-
-	console.log('Added scooter rental finish tx');
 });
 
 Alloy.Globals.socket.on('block.applied', (block) => {
@@ -42,8 +38,6 @@ Alloy.Globals.socket.on('block.applied', (block) => {
 	});
 
 	section.items = items;
-
-	// console.log('Added new block');
 });
 
 function onItemClickHandler(e) {
