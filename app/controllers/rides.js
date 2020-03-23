@@ -33,16 +33,18 @@ function reloadList() {
 	const finishedRideTemplates = [];
 
 	for(let ride of rides) {
-		const start = moment(ride.rentalStartTx.asset.gps.human);
-		const end = ride.rentalFinishTx ? moment(ride.rentalFinishTx.asset.gps[1].human) : moment();
-		const secondsElapsed = Math.round(moment.duration(end.diff(start)).asSeconds());
 		const arkRatePerSecond = Number(ride.rentalStartTx.asset.rate / 1e8).toFixed(8);
-		const normalizedArk = (secondsElapsed * arkRatePerSecond).toLocaleString(undefined, {
-			maximumFractionDigits: 8
+		const start = moment(ride.rentalStartTx.asset.gps.human);
+		const maxDurationInSeconds = ride.rentalStartTx.amount / ride.rentalStartTx.asset.rate;
+		const end = moment(start).add(maxDurationInSeconds, 'seconds');
+		const secondsElapsed = Math.round(moment.duration(moment().diff(start)).asSeconds());
+		let reachedMaxDuration = secondsElapsed >= maxDurationInSeconds;
+		let duration = reachedMaxDuration ? moment.utc(end.diff(start)) : moment.utc(moment().diff(start));
+		const normalizedArk = ((reachedMaxDuration ? maxDurationInSeconds : secondsElapsed) * arkRatePerSecond).toLocaleString(undefined, {
+			maximumFractionDigits: 8,
 		});
-		let subTitle = 'Rental duration: ' + moment.utc(end.diff(start)).format('HH:mm:ss');
+		let subTitle = 'Rental duration: ' + duration.format('HH:mm:ss');
 		subTitle += ' - costs: R ' + normalizedArk;
-
 		const template = {
 			title: {text: 'Session ID: ' + ride.rentalStartTx.asset.sessionId},
 			subTitle: {text: subTitle},
