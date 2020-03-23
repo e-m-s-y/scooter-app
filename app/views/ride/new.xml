@@ -8,6 +8,6 @@
             <Label id="duration"/>
         </View>
         <Label id="costs" class="t8 l8 r8"/>
-        <Button id="makePaymentButton" class="t16" title="Send payment" onClick="onMakePaymentHandler"/>
+        <Button id="makePaymentButton" class="t16" title="Send transaction" onClick="onMakePaymentHandler"/>
     </Window>
 </Alloy>
