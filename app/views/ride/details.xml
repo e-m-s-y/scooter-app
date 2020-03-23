@@ -6,12 +6,12 @@
         <Label id="start" class="t8 l8 r8"/>
         <Label id="end" class="t8 l8 r8"/>
         <Label id="duration" class="t8 l8 r8"/>
+        <Label id="timeLeft" class="t8 l8 r8"/>
         <Label id="credit" class="t8 l8 r8"/>
-        <Label id="difference" class="t8 l8 r8"/>
         <Label id="costs" class="t8 l8 r8"/>
+        <Label id="isFinishedByScooter" class="t8 l8 r8"/>
         <Label id="gpsStart" class="t8 l8 r8"/>
         <Label id="gpsEnd" class="t8 l8 r8"/>
-        <Button id="finishRideButton" title="Finish ride" onClick="finishRideHandler" enabled="false"/>
         <Button id="openRentalStartTx" title="Open Rental Start tx in browser" onClick="onOpenExplorerHandler"/>
         <Button id="openRentalFinishTx" title="Open Rental Finish tx in browser" onClick="onOpenExplorerHandler"
                 enabled="false"/>
