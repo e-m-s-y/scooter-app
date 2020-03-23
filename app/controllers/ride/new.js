@@ -40,3 +40,7 @@ function onMakePaymentHandler() {
 
 	$.window.navigationWindow.close();
 }
+
+function onAndroidBackHandler() {
+	$.window.close();
+}

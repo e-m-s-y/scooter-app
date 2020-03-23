@@ -4,6 +4,12 @@ let isReady = false;
 function onWebViewLoadedHandler() {
 	$.webView.visible = false;
 	$.webView.height = 0;
+
+	if(OS_ANDROID) {
+		$.activityIndicator.hide();
+		$.activityIndicator.height = 0;
+	}
+
 	isReady = true;
 }
 
@@ -95,6 +101,8 @@ function onCloseHandler() {
 		.off('scooter.rental.finish', onRentalFinishHandler);
 	clearInterval(interval);
 }
+
+$.activityIndicator.show();
 
 reloadList();
 

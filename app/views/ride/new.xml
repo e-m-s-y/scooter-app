@@ -1,5 +1,6 @@
 <Alloy>
     <Window id="window" title="Configure your ride" layout="vertical">
+        <ActionBar platform="android" displayHomeAsUp="true" onHomeIconItemSelected="onAndroidBackHandler"/>
         <Label class="t8 l8 r8">Please set the duration of your ride. You will receive a refund if you finish the ride early or you will have to make a second payment if you exceed the duration.</Label>
         <Slider id="slider" class="t16 l8 r8" min="1" max="180" value="20" onChange="updateValues"/>
         <Label id="rate" class="t16 l8 r8"/>

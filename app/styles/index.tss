@@ -1,6 +1,6 @@
 "TabGroup[platform=android]": {
     shiftMode: false,
     style: Ti.UI.Android.TABS_STYLE_BOTTOM_NAVIGATION,
-    tabsBackgroundColor: '#4CAF50',
-    tabsBackgroundSelectedColor: '#388E3C'
+    tabsBackgroundColor: '#424242',
+    tabsBackgroundSelectedColor: '#616161'
 }

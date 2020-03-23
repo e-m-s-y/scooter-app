@@ -4,6 +4,7 @@
             <MenuItem title="New ride" icon="add_white_48.png" showAsAction="Ti.Android.SHOW_AS_ACTION_ALWAYS"
                       onClick="onAddButtonClickHandler"/>
         </Menu>
+        <ActivityIndicator id="activityIndicator" class="hFill" style="Ti.UI.ActivityIndicatorStyle.BIG"/>
         <WebView id="webView" url="/core.html" onLoad="onWebViewLoadedHandler"/>
         <ListView id="listView" onItemclick="onItemClickHandler">
             <Templates>

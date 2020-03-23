@@ -2,6 +2,14 @@
     backgroundColor: Alloy.CFG.styles.defaultBackgroundColor
 }
 
+'Window[platform=android]': {
+    backgroundColor: '#EEEEEE'
+}
+
+'ActivityIndicator[platform=android]': {
+    indicatorColor : '#FFC107',
+}
+
 'WebView[platform=ios]': {
     backgroundColor: Alloy.CFG.styles.defaultBackgroundColor
 }

@@ -1,5 +1,11 @@
 <Alloy>
-    <Window id="window" title="Scan scooter" layout="vertical" onClose="onCloseHandler">
+    <Window platform="android" id="window" title="Scan scooter" layout="vertical" onClose="onCloseHandler">
+        <ActionBar displayHomeAsUp="true" onHomeIconItemSelected="onAndroidBackHandler"/>
+        <Button class="t16 fs18" title="Scan from camera" onClick="onStartCameraScanHandler"/>
+        <Label class="t4" text="or"/>
+        <Button class="t4 fs18" title="Scan from image" onClick="onStartGalleryScanHandler"/>
+    </Window>
+    <Window platform="ios" id="window" title="Scan scooter" layout="vertical" onClose="onCloseHandler">
         <Button class="t16 fs18" title="Scan from camera" onClick="onStartCameraScanHandler"/>
         <Label class="t4" text="or"/>
         <Button class="t4 fs18" title="Scan from image" onClick="onStartGalleryScanHandler"/>

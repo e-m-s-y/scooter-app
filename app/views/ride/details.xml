@@ -1,5 +1,6 @@
 <Alloy>
     <Window id="window" title="Ride details" layout="vertical" onClose="onCloseHandler">
+        <ActionBar platform="android" displayHomeAsUp="true" onHomeIconItemSelected="onAndroidBackHandler"/>
         <Label id="recipient" class="t8 l8 r8"/>
         <Label id="sessionId" class="t8 l8 r8"/>
         <Label id="rate" class="t8 l8 r8"/>

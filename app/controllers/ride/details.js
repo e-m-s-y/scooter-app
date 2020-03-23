@@ -68,6 +68,10 @@ function onOpenExplorerHandler(event) {
 	Ti.Platform.openURL(event.source.url);
 }
 
+function onAndroidBackHandler() {
+	$.window.close();
+}
+
 if( ! $.args.rentalFinishTx) {
 	interval = setInterval(updateValues, 1000);
 }

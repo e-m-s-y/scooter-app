@@ -46,13 +46,24 @@
         <manifest android:versionCode="1" android:versionName="0.0.1" xmlns:android="http://schemas.android.com/apk/res/android">
             <uses-sdk android:maxSdkVersion="28"
                 android:minSdkVersion="28" android:targetSdkVersion="28"/>
-            <application android:theme="@style/Theme.Default" android:debuggable="true"/>
+            <application android:theme="@style/Theme.Default" android:debuggable="true">
+                <activity android:name=".ArkScootersActivity"
+                          android:configChanges="fontScale|keyboard|keyboardHidden|layoutDirection|locale|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode|density"
+                          android:label="@string/app_name" android:theme="@style/Theme.Splashscreen.Default"
+                          android:alwaysRetainTaskState="true">
+                    <intent-filter>
+                        <action android:name="android.intent.action.MAIN"/>
+                        <category android:name="android.intent.category.LAUNCHER"/>
+                    </intent-filter>
+                </activity>
+            </application>
         </manifest>
     </android>
     <modules>
-        <module platform="android">ti.socketio</module>
         <module platform="ios">ti.socketio</module>
+        <module platform="android">ti.socketio</module>
         <module platform="ios">ti.barcode</module>
+        <module platform="android">ti.barcode</module>
     </modules>
     <deployment-targets>
         <target device="android">true</target>

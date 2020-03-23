@@ -62,7 +62,7 @@ function parseResult(event) {
 
 	switch(event.contentType) {
 		case Barcode.URL:
-			msg = event.result;
+			msg = uriToObject(event.result);
 			break;
 		case Barcode.SMS:
 			msg = JSON.stringify(event.data);
@@ -158,4 +158,8 @@ function uriToObject(uri) {
 	return object;
 }
 
-//rad:TGGUtM6KPdWn7LSpNcWj1y5ngGa8xJqxHf?hash=e73043362938b98242cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425&rate=3300000&lat=43.124322&lon=-22.392010
+function onAndroidBackHandler() {
+	$.window.close();
+}
+
+//rad:TGGUtM6KPdWn7LSpNcWj1y5ngGa8xJqxHf?hash=2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824&rate=2000000&lat=-180.222222&lon=1.111111

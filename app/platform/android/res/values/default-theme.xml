@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.Default" parent="@style/Theme.AppCompat.Light">
-        <item name="colorPrimary">#F44336</item>
-        <item name="colorPrimaryDark">#D32F2F</item>
+    <style name="Theme.Default" parent="@style/Theme.AppCompat">
+        <item name="colorPrimary">#424242</item>
+        <item name="colorPrimaryDark">#212121</item>
         <item name="actionMenuTextColor">#FFFFFD</item>
         <item name="colorControlHighlight">#EEEEEE</item>
         <item name="android:colorEdgeEffect">#607D8B</item>
@@ -15,15 +15,15 @@
         <item name="dialogTheme">@style/Theme.Ag.AlertDialog</item>
         <item name="alertDialogTheme">@style/Theme.Ag.AlertDialog</item>
         <item name="android:itemTextAppearance">@style/Theme.Ag.ItemTextAppearance</item>
-        <item name="android:navigationBarColor">#F44336</item>
+        <item name="android:navigationBarColor">#424242</item>
         <item name="android:colorForeground">#FFFFFD</item>
     </style>
     <style name="Theme.Ag.ItemTextAppearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
-        <item name="android:textColor">@color/abc_primary_text_material_light</item>
+        <item name="android:textColor">@color/abc_primary_text_material_dark</item>
         <item name="android:textSize">@dimen/abc_text_size_menu_material</item>
     </style>
-    <style name="Theme.Ag.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="android:textColor">@color/abc_primary_text_material_light</item>
-        <item name="android:textColorPrimary">@color/abc_secondary_text_material_light</item>
+    <style name="Theme.Ag.AlertDialog" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:textColor">@color/abc_primary_text_material_dark</item>
+        <item name="android:textColorPrimary">@color/abc_secondary_text_material_dark</item>
     </style>
 </resources>
