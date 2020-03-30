@@ -22,7 +22,7 @@
     <AlertDialog id="promptPassphrase" class="inputDialog" onClick="onPromptedPassphraseHandler" title="Set passphrase"
                  message="Please enter the passphrase of your wallet.">
         <View platform="android">
-            <TextField id="passphraseInput" class="l20 r20 tcBlack" hintText="Enter passphrase"/>
+            <TextField id="passphraseInput" class="l20 r20" hintText="Enter passphrase"/>
         </View>
         <ButtonNames>
             <ButtonName>OK</ButtonName>
@@ -31,7 +31,7 @@
     <AlertDialog id="promptNonce" class="inputDialog" onClick="onPromptedNonceHandler" title="Set nonce"
                  message="Set your nonce.">
         <View platform="android">
-            <TextField id="nonceInput" class="l20 r20 tcBlack" hintText="Enter nonce"/>
+            <TextField id="nonceInput" class="l20 r20" hintText="Enter nonce"/>
         </View>
         <ButtonNames>
             <ButtonName>OK</ButtonName>
