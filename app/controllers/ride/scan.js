@@ -132,7 +132,7 @@ function onStartCameraScanHandler() {
 				overlay: $.cameraOverlay,
 				showCancel: true,
 				showRectangle: true,
-				keepOpen: true
+				keepOpen: false
 			});
 		} else {
 			alert('No permission to use the camera. If you want to scan codes please give the app permissions in the settings of your phone.');
