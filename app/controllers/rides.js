@@ -1,4 +1,5 @@
 const moment = require('alloy/moment');
+let interval;
 let isReady = false;
 
 function onWebViewLoadedHandler() {
@@ -42,9 +43,9 @@ function reloadList() {
 		const arkRatePerSecond = Number(ride.rentalStartTx.asset.rate / 1e8).toFixed(8);
 		const start = moment(ride.rentalStartTx.asset.gps.human);
 		const maxDurationInSeconds = ride.rentalStartTx.amount / ride.rentalStartTx.asset.rate;
-		const end = moment(start).add(maxDurationInSeconds, 'seconds');
+		const end = ride.rentalFinishTx ? moment(ride.rentalFinishTx.asset.gps[1].human) : moment(start).add(maxDurationInSeconds, 'seconds');
 		const secondsElapsed = Math.round(moment.duration(moment().diff(start)).asSeconds());
-		let reachedMaxDuration = secondsElapsed >= maxDurationInSeconds;
+		let reachedMaxDuration = ride.rentalFinishTx ? true : secondsElapsed >= maxDurationInSeconds;
 		let duration = reachedMaxDuration ? moment.utc(end.diff(start)) : moment.utc(moment().diff(start));
 		const normalizedArk = ((reachedMaxDuration ? maxDurationInSeconds : secondsElapsed) * arkRatePerSecond).toLocaleString(undefined, {
 			maximumFractionDigits: 8,
@@ -67,6 +68,16 @@ function reloadList() {
 
 function onRentalStartHandler(tx) {
 	const rides = Ti.App.Properties.getObject('rides', []);
+
+	for(const i in rides) {
+		if(rides.hasOwnProperty(i)) {
+			let ride = rides[i];
+
+			if( ! ride.rentalFinishTx && ride.rentalStartTx.asset.sessionId === tx.asset.sessionId) {
+				return reloadList();
+			}
+		}
+	}
 
 	rides.unshift({
 		rentalStartTx: tx
@@ -96,9 +107,13 @@ function onRentalFinishHandler(tx) {
 	reloadList();
 }
 
-function onCloseHandler() {
+function unsetSocketEventListeners() {
 	Alloy.Globals.socket.off('scooter.rental.start', onRentalStartHandler)
-		.off('scooter.rental.finish', onRentalFinishHandler);
+		.off('scooter.rental.finish', onRentalStartHandler);
+}
+
+function onCloseHandler() {
+	unsetSocketEventListeners();
 	clearInterval(interval);
 }
 
@@ -106,8 +121,9 @@ if(OS_ANDROID) {
 	$.activityIndicator.show();
 }
 
+interval = setInterval(reloadList, 1000);
 reloadList();
+unsetSocketEventListeners();
 
-const interval = setInterval(reloadList, 1000);
 Alloy.Globals.socket.on('scooter.rental.start', onRentalStartHandler)
 	.on('scooter.rental.finish', onRentalFinishHandler);

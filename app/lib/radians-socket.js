@@ -4,9 +4,6 @@ let reconnectionAttempts = 0;
 const maxReconnectionAttempts = 5;
 let isConnected = false;
 let eventBuffer = [];
-let onMaxReconnectionsReachedHandler = function() {
-	// TODO toon alert?
-};
 
 function emit(event, data) {
 	if( ! isConnected) {
@@ -26,7 +23,7 @@ function emit(event, data) {
 }
 
 module.exports = {
-	connect: function(token, endpoint) {
+	connect: function(endpoint) {
 		if(socket !== undefined) {
 			console.log('Reconnecting to socket...');
 			socket.open();
@@ -34,43 +31,38 @@ module.exports = {
 			return this;
 		}
 
-		token = token || Alloy.Globals.session.getTokens().whatsaap;
-		endpoint = endpoint || Alloy.Globals.WHATSAAP_ENDPOINT;
 
-		if( ! token || ! endpoint) {
-			console.warn('Connection attempt block due lack of token / endpoint.');
+		if( ! endpoint) {
+			console.warn('Connection attempt blocked due lack of endpoint.');
 
 			return this;
 		}
 
-		const query = 'query=' + Ti.Utils.base64encode(`whatsaap_token=${token}`);
-
-		console.log(`Connecting to ${endpoint} with query ${query}...`);
-
+		console.log(`Connecting to ${endpoint}...`);
 
 		if( ! socket) {
 			if(OS_IOS) {
-				socket = io.connect(`${endpoint}?${query}`, {
+				socket = io.connect(endpoint, {
 					forceWebsockets: true,
 					transports: ['websocket'],
 					reconnectionAttempts: maxReconnectionAttempts
 				});
 			} else if(OS_ANDROID) {
-				socket = io.connect(`${endpoint}?${query}`, {
+				socket = io.connect(endpoint, {
 					transports: ['websocket'],
 					reconnectionAttempts: maxReconnectionAttempts
 				});
 			} else {
-				return console.error('WhatsAAP is not supported on this OS!');
+				return console.error('Socket.io is not supported on this OS!');
 			}
 		} else {
-			return console.warn('WhatsaapManager has no support for multiple socket connections, ignoring this connection attempt.');
+			return console.warn('There is no support for multiple socket connections, ignoring this connection attempt.');
 		}
 
 		socket.on('connect', function() {
 			isConnected = true;
 
-			console.log('Connected to WhatsAAP!');
+			console.log('Connected to socket server!');
 
 			if(eventBuffer.length) {
 				console.log('Emitting bufferend events...');
@@ -91,10 +83,6 @@ module.exports = {
 
 			if(reconnectionAttempts === maxReconnectionAttempts) {
 				console.error('Max reconnection attempts reached!');
-
-				if(typeof onMaxReconnectionsReachedHandler === 'function') {
-					onMaxReconnectionsReachedHandler();
-				}
 			}
 		});
 		socket.on('error', function(...error) {
@@ -104,16 +92,13 @@ module.exports = {
 			isConnected = false;
 			socket = undefined;
 
-			console.log(`Disconnected from WhatsAAP due to ${reason}!`);
+			console.log(`Disconnected from socket server due to ${reason}!`);
 		});
 
 		return this;
 	},
 	isConnected: function() {
 		return isConnected;
-	},
-	setOnMaxReconnectionsReachedHandler: function(callback) {
-		onMaxReconnectionsReachedHandler = callback;
 	},
 	on: function(event, callback) {
 		if(socket === undefined) {
@@ -148,54 +133,10 @@ module.exports = {
 		return this;
 	},
 	emit: emit,
-	joinRooms: function(rooms) {
-		if(socket === undefined) {
-			console.warn(`Socket instance is not initialized, ignoring joinRooms call...`);
-
-			return this;
-		}
-
-		rooms = rooms || [];
-
-		if( ! rooms.length) {
-			console.warn('Rooms are empty, ignoring joining rooms.');
-
-			return this;
-		}
-
-		console.log(`Joining rooms %O`, rooms);
-
-		this.emit('join rooms', Ti.Utils.base64encode(rooms.join()).toString());
-
-		return this;
-	},
-	leaveRooms: function(rooms) {
-		if(socket === undefined) {
-			console.warn(`Socket instance is not initialized, ignoring leaveRooms call...`);
-
-			return this;
-		}
-
-		rooms = rooms || [];
-
-		if( ! rooms.length) {
-			console.warn('Rooms are empty, ignoring leaving rooms.');
-
-			return this;
-		}
-
-		this.emit('leave rooms', Ti.Utils.base64encode(rooms.join()).toString());
-
-		return this;
-	},
 	disconnect: function() {
-		// TODO alle event handlers moeten ook worden gesloopt.
-		// TODO de hele socket moet gewoon opbokke.
-		// TODO controleren hoe de app reageert wanneer dit gebeurt en vervolgens weer opnieuw connect. Worden
-		// de event listeners dan dubbel uitgevoerd?
 		this.off();
 		socket.disconnect();
-		console.log('Disconnected from WhatsAAP.');
+		console.log('Disconnected from socket server.');
 
 		return this;
 	}

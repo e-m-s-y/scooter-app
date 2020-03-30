@@ -8,21 +8,6 @@ if(OS_IOS) {
 	}
 }
 
-const io = require('ti.socketio');
-Alloy.Globals.socket = io.connect('https://radians.nl', {
-	path: '/socket.io',
-	timeout: 5000
-});
+Alloy.Globals.socket = require('radians-socket');
 
-Alloy.Globals.socket.on('connect', () => {
-	console.log('Connected to Radians socket!');
-});
-
-Alloy.Globals.socket.on('error', (error) => {
-	console.error(error);
-});
-
-Alloy.Globals.socket.on('disconnect', (reason) => {
-	console.warn(reason);
-	console.warn('Radians socket disconnected');
-});
+Alloy.Globals.socket.connect('https://radians.nl');

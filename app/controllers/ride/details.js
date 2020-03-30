@@ -3,17 +3,18 @@ let interval;
 const arkRatePerSecond = Number($.args.rentalStartTx.asset.rate / 1e8).toFixed(8);
 const start = moment($.args.rentalStartTx.asset.gps.human);
 const maxDurationInSeconds = $.args.rentalStartTx.amount / $.args.rentalStartTx.asset.rate;
-const end = moment(start).add(maxDurationInSeconds, 'seconds');
+let end = $.args.rentalFinishTx ? moment($.args.rentalFinishTx.asset.gps[1].human) : moment(start).add(maxDurationInSeconds, 'seconds');
 let secondsElapsed = Math.round(moment.duration(moment().diff(start)).asSeconds());
-let reachedMaxDuration = secondsElapsed >= maxDurationInSeconds;
+let reachedMaxDuration = $.args.rentalFinishTx ? true : secondsElapsed >= maxDurationInSeconds;
 let secondsLeft = reachedMaxDuration ? 0 : maxDurationInSeconds - secondsElapsed;
 let duration = reachedMaxDuration ? moment.utc(end.diff(start)) : moment.utc(moment().diff(start));
 let costs = (reachedMaxDuration ? maxDurationInSeconds : secondsElapsed) * Number($.args.rentalStartTx.asset.rate);
 
 function updateValues() {
 	secondsElapsed = Math.round(moment.duration(moment().diff(start)).asSeconds());
-	reachedMaxDuration = secondsElapsed >= maxDurationInSeconds;
+	reachedMaxDuration = $.args.rentalFinishTx ? true : secondsElapsed >= maxDurationInSeconds;
 	costs = (reachedMaxDuration ? maxDurationInSeconds : secondsElapsed) * Number($.args.rentalStartTx.asset.rate);
+	end = $.args.rentalFinishTx ? moment($.args.rentalFinishTx.asset.gps[1].human) : moment(start).add(maxDurationInSeconds, 'seconds');
 	duration = reachedMaxDuration ? moment.utc(end.diff(start)) : moment.utc(moment().diff(start));
 	secondsLeft = reachedMaxDuration ? 0 : maxDurationInSeconds - secondsElapsed;
 
@@ -41,6 +42,7 @@ function onCloseHandler() {
 function onRentalFinishHandler(tx) {
 	$.args.rentalFinishTx = tx;
 	setValues();
+	clearInterval(interval);
 }
 
 function setValues() {
