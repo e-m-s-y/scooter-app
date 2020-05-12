@@ -10,4 +10,4 @@ if(OS_IOS) {
 
 Alloy.Globals.socket = require('radians-socket');
 
-Alloy.Globals.socket.connect('https://radians.nl');
+Alloy.Globals.socket.connect('https://socket.radians.nl');

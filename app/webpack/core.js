@@ -74,7 +74,7 @@ createTransferTx = function(data) {
 			struct: struct
 		});
 	} else {
-		log('curl --request POST --url https://radians.nl/api/transactions ' +
+		log('curl --request POST --url https://api.radians.nl/api/transactions ' +
 			'--header "content-type:application/json" --data ' + JSON.stringify(JSON.stringify({transactions: [struct]})));
 	}
 };
@@ -99,7 +99,7 @@ createScooterRegistrationTx = function(data) {
 			struct: struct
 		});
 	} else {
-		log('curl --request POST --url https://radians.nl/api/transactions ' +
+		log('curl --request POST --url https://api.radians.nl/api/transactions ' +
 			'--header "content-type:application/json" --data ' + JSON.stringify(JSON.stringify({transactions: [struct]})));
 	}
 };
@@ -130,7 +130,7 @@ createRentalStartTx = function(data) {
 			struct: struct
 		});
 	} else {
-		log('curl --request POST --url https://radians.nl/api/transactions ' +
+		log('curl --request POST --url https://api.radians.nl/api/transactions ' +
 			'--header "content-type:application/json" --data ' + JSON.stringify(JSON.stringify({transactions: [struct]})));
 	}
 };
@@ -162,7 +162,7 @@ createRentalFinishTx = function(data) {
 			struct: struct
 		});
 	} else {
-		log('curl --request POST --url https://radians.nl/api/transactions ' +
+		log('curl --request POST --url https://api.radians.nl/api/transactions ' +
 			'--header "content-type:application/json" --data ' + JSON.stringify(JSON.stringify({transactions: [struct]})));
 	}
 
