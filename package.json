@@ -1,4 +1,5 @@
 {
+  "version": "0.0.2",
   "scripts": {
     "webpack": "cd app/webpack && webpack && node -e \"require('fs').copyFile('./bundle.js', '../assets/bundle.jsx', () => {})\"",
     "build": "cd app/webpack && npm install && cd ../.. && npm run webpack"
