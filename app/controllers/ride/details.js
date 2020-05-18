@@ -55,13 +55,13 @@ function setValues() {
 	$.gpsStart.text = 'GPS start: ' + JSON.stringify($.args.rentalStartTx.asset.gps);
 	$.gpsEnd.text = 'GPS finish: ';
 	$.rate.text = 'Rate per second: R ' +  + arkRatePerSecond + '\nRate per minute: R ' + Number(arkRatePerSecond * 60).toFixed(8) + '\nRate per hour: R ' + Number(arkRatePerSecond * 3600).toFixed(8);
-	$.openRentalStartTx.url = 'https://radians.nl/#/transaction/' + $.args.rentalStartTx.id;
+	$.openRentalStartTx.url = 'https://explorer.radians.nl/transaction/' + $.args.rentalStartTx.id;
 
 	if($.args.rentalFinishTx) {
 		$.isFinishedByScooter.text = 'Scooter has finished ride: Yes';
 		$.end.text = 'Finished at: ' + end.format('YYYY-MM-DD HH:mm:ss');
 		$.gpsEnd.text = 'GPS finish: ' + JSON.stringify($.args.rentalFinishTx.asset.gps[1]);
-		$.openRentalFinishTx.url = 'https://radians.nl/#/transaction/' + $.args.rentalFinishTx.id;
+		$.openRentalFinishTx.url = 'https://explorer.radians.nl/transaction/' + $.args.rentalFinishTx.id;
 		$.openRentalFinishTx.enabled = true;
 	}
 }

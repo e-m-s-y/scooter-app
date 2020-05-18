@@ -54,7 +54,7 @@ function broadcastTxHandler(event) {
 		}
 	};
 
-	xhr.open('POST', 'https://radians.nl/api/transactions');
+	xhr.open('POST', 'https://api.radians.nl/api/transactions');
 	xhr.setRequestHeader('content-type', 'application/json');
 
 	const data = JSON.stringify({

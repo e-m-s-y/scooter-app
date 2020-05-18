@@ -162,4 +162,4 @@ function onAndroidBackHandler() {
 	$.window.close();
 }
 
-//rad:TGGUtM6KPdWn7LSpNcWj1y5ngGa8xJqxHf?hash=2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824&rate=2000000&lat=-180.222222&lon=1.111111
+//rad:TGm4RA3hv49DmKWWpSPGFDHMmQmQNdqqZA?hash=2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824&rate=1&lat=-180.222222&lon=1.111111
